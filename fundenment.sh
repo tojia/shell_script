@@ -19,9 +19,9 @@ echo -e  "------------1-------------------\n"
 
 s="hello,jack!!!"
 
-echo -e 's is ${s}\n,lllllllllll\n'
+echo -e 's 为 ${s}\n,lllllllllll\n'
 
-echo -e "s is ${s}\n, jjjjjj\n"
+echo -e "s 为 ${s}\n, jjjjjj\n"
 
 # a修饰成只读变量
 readonly s
@@ -68,13 +68,13 @@ echo "f = ${f}" # Output: f = 1
 
 echo -e "--------------3---------------\n"
 
-echo $#
+echo $#       #返回向脚本传递的参数的个数
 
 echo -e "$* \n"  #以一个单字符串显示所有向脚本传递的参数
 
 echo -e "$@ \n"  #与$*相同，但是使用时加引号，并在引号中返回每个参数。
 
-echo -e "-----------------4------------------"
+echo -e "-----------------4数组------------------"
 
 my_arr=(value1 value2 value3 value4)
 
@@ -112,7 +112,7 @@ echo "my_str length: ${#my_str}"
 str1="hello"
 str2="world"
 
-str3=${str1}""${str2}
+str3=${str1}"  "${str2}
 echo ${str3}
 
 #提取字符串
@@ -121,13 +121,13 @@ echo ${str3}
 str="hello world"
 
 sub_str=${str:1}
-echo -e "sub_str: ${sub_str}\n"
+echo -e "sub_str1: ${sub_str}\n"
 
 #从位置1开始提取长度为3的子串
 str="hello world"
 
 sub_str=${str:1:3}
-echo -e  "sub_str: ${sub_str}\n"
+echo -e  "sub_str2: ${sub_str}\n"
 
 #------删除子串----------------------
 
@@ -147,22 +147,22 @@ str="abcabcdefabcabc"
 # 从str的开头,删除最短匹配的以a开头c结尾的子串
 # 将删除最左端的abc
 # 输出：abcdefabcabc
-echo -e  "${str#a*c} \n"  
+echo -e  " str1 = ${str#a*c} \n"  
 
 # 从str的开头,删除最长匹配以a开头b结尾的子串
 # 将删除abcabcdefabcab
 # 输出：c
-echo -e  "${str##a*b}\n" 
+echo -e  " str2 = ${str##a*b}\n" 
 
 # 从str的结尾,删除最短匹配以a开头c结尾的子串
 # 将删除最右端的abc
 # 输出：abcabcdefabc
-echo -e  "${str%a*c} \n"  
+echo -e  " str3 = ${str%a*c} \n"  
 
 # 从str的结尾,删除最长匹配以a开头c结尾的子串
 # 将删除整个字符串
 # 输出：空
-echo -e  "${str%%a*b}\n" 
+echo -e  " str4 = ${str%%a*b}\n" 
 
 
 # ----------------------------------------------替换子串-----------------
@@ -178,16 +178,16 @@ echo -e  "${str%%a*b}\n"
 str="abcdefabc"
 
 # 用hello替换第一个abc
-echo -e "${str/"abc"/"hello"} \n"    # 输出：hellodefabc
+echo -e  " STR1 = ${str/"abc"/"hello"} \n"    # 输出：hellodefabc
 
 # 用hello替换所有的abc
-echo -e  "${str//"abc"/"hello"} \n"   # 输出：hellodefhello
+echo -e  " STR2 = ${str//"abc"/"hello"} \n"   # 输出：hellodefhello
 
 # 前缀匹配替换
-echo -e  "${str/#"abc"/"world"} \n"   # 输出：worlddefabc
+echo -e  " STR3 = ${str/#"abc"/"world"} \n"   # 输出：worlddefabc
 
 # 后缀匹配替换
-echo -e  "${str/％"abc"/"world"} \n"  # 输出：abcdefworld
+echo -e  " STR4 = ${str/％"abc"/"world"} \n"  # 输出：abcdefworld
 
 
 echo -e "-----------------6------------------"
@@ -199,7 +199,7 @@ done
 #sudo cp ./test.sh  ./fundenment.sh
 
 your_name="runboy"
-greeting="hello,"${your_name}"!!"
+greeting="hello, "${your_name}"!!"
 echo -e "${greeting} \n"
 
 greeting_2='hello, '$your_name' !'
@@ -239,7 +239,7 @@ printf "%s\n" abcdef
 # 格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用
 printf "%s\n" abc def
 
-printf "%s\n" abc def
+printf "%s\n" 123 456
 
 printf "%s %s %s\n" a b c d e f g h i j
 
@@ -367,7 +367,7 @@ done
 
 printf  "%s\n" "--------------continue----------------------"
 
-:<<EOF
+# :<<EOF
 while :
 do
     echo -n "输入 1 到 5 之间的数字: "
@@ -376,13 +376,14 @@ do
         1|2|3|4|5) echo -e "你输入的数字为 $aNum! \n"
         ;;
         *) echo -e "你输入的数字不是 1 到 5 之间的! \n"
-            continue
+            # continue
             echo "游戏结束"
+            break
         ;;
     esac
 done
 
-EOF
+# EOF
 
 
 echo -e "%s\n" "------------重定向------------------"
@@ -437,19 +438,18 @@ y=20
 
 echo "x=${x}, y=${y}"
 
-val=$(($x+$y))
-echo "${x} + ${y} = $val"
+val1=$(($x+$y))
+echo " val1 ${x} + ${y} = $val1"
 
-val1=$((x+y))
-echo "${x} + ${y} = $val1"
+val2=$((x+y))
+echo " val2 ${x} + ${y} = $val2"
 
-val2=`expr ${x} + ${y}`
-echo "${x} + ${y} = $val2"
+val3=`expr ${x} + ${y}`
+echo " val3 ${x} + ${y} = $val3"
 
-let val3=${x}+${y}
-echo "${x} + ${y} = $val3"
+let val4=${x}+${y}
+echo " val4 ${x} + ${y} = $val4"
 
-echo '$n'
 
 :<<EOF
 []即为test命令的另一种形式。
@@ -525,7 +525,6 @@ val--
 
 
 
-
 EOF
 
 a=-1
@@ -555,6 +554,7 @@ then
     cd ${path}
 else
     echo -e "进入非家目录\n"
+    cd ${path}
 fi
 
 echo -e "当前目录:`pwd`"
