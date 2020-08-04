@@ -275,7 +275,7 @@ result1=$((a+b)) # 注意等号两边不能有空格
 echo -e  "result1 为： $result1 \n"
 
 
-printf  "%s\n" "--------------if else ----------------------"
+printf  "%s\n" "--------------9. if else ----------------------"
 
 num1="ru1noob"
 num2="runoob"
@@ -286,7 +286,7 @@ else
     echo '两个字符串不相等!'
 fi
 
-printf  "%s\n" "--------------case----------------------"
+printf  "%s\n" "--------------10. case----------------------"
 
 echo '输入 1 到 4 之间的数字:'
 echo '你输入的数字为:'
@@ -304,14 +304,14 @@ case $aNum in
     ;;
 esac
 
-printf  "%s\n" "--------------for----------------------"
+printf  "%s\n" "--------------11.  for----------------------"
 
 for str in 'This is a string'
 do
     echo  $str
 done
 
-echo -e "%s\n" "----------------while---------------------"
+echo -e "%s\n" "----------------12. while---------------------"
 
 int=1
 while((${int}<=10))
@@ -320,7 +320,7 @@ do
     let "int+=1"  #这里可以写 int++, "int++" int+=1都可以
 done
 
-echo -e "%s\n" "------------until------------------"
+echo -e "%s\n" "------------13. until------------------"
 a=0
 
 until [ ! $a -lt 10 ]
@@ -330,7 +330,7 @@ do
 done
 
 
-printf  "%s\n" "--------------break----------------------"
+printf  "%s\n" "--------------14. break----------------------"
 
 :<<EOF
 #无限循环语法格式：
@@ -365,7 +365,7 @@ do
 done
 
 
-printf  "%s\n" "--------------continue----------------------"
+printf  "%s\n" "--------------15. continue----------------------"
 
 # :<<EOF
 while :
@@ -386,7 +386,7 @@ done
 # EOF
 
 
-echo -e "%s\n" "------------重定向------------------"
+echo -e "\n------------16. 重定向------------------"
 
 who > users
 
@@ -398,7 +398,7 @@ cat << ASSS
 www.runoob.com
 ASSS
 
-echo -e "%s\n" "------------``，(),(()),[[]],expr,等的用法------------------"
+echo -e "%s\n" "------------17. ``，(),(()),[[]],expr,等的用法------------------"
 
 #  ``：引用一个命令的执行结果，$()也是一样
 #  在bash shell中, $()与``(反引号)都是用来做命令替换(command substitution)的。
@@ -455,6 +455,14 @@ echo " val4 ${x} + ${y} = $val4"
 []即为test命令的另一种形式。
 你必须在左括号的右侧和右括号的左侧各加一个空格，否则会报错。
 大于符号或小于符号必须要转义，否则会被理解成重定向。
+
+-eq 检测两个数是否相等，相等返回 true。                     [$a -eq $b] 返回 false。
+-ne 检测两个数是否不相等，不相等返回 true。                 [$a -ne $b] 返回 true。
+-gt 检测左边的数是否大于右边的，如果是，则返回 true。       [$a -gt $b] 返回 false。
+-lt 检测左边的数是否小于右边的，如果是，则返回 true。       [$a -lt $b] 返回 true。
+-ge 检测左边的数是否大于等于右边的，如果是，则返回 true。   [$a -ge $b] 返回 false。
+-le 检测左边的数是否小于等于右边的，如果是，则返回 true。   [$a -le $b] 返回 true。
+
 EOF
 
 a=1
@@ -523,8 +531,6 @@ val--
 正常存在于[[ ]]条件判断结构中，但是如果出现在[ ]结构中的话，会报错。比如可以直
 接使用if [[ $a != 1 && $a != 2 ]], 如果不适用双括号, 则为if [ $a -ne 1 ] && [ $a != 2 ]或者if [ $a -ne 1 -a $a != 2 ]。
 
-
-
 EOF
 
 a=-1
@@ -565,3 +571,76 @@ echo -e "当前目录:`pwd`"
 read -p "请输入你的爱好：" -t 10 named
 
 echo ${named}
+
+echo -e "\n------------------------18. 文件测试-------------------------"
+
+
+<<EOF
+文件测试运算符
+文件测试运算符用于检测 Unix 文件的各种属性。
+
+属性检测描述如下：
+
+操作符  说明    举例
+-b file 检测文件是否是块设备文件，如果是，则返回 true。 [-b $file] 返回 false。
+-c file 检测文件是否是字符设备文件，如果是，则返回 true。   [-c $file] 返回 false。
+-d file 检测文件是否是目录，如果是，则返回 true。   [-d $file] 返回 false。
+-f file 检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。 [-f $file] 返回 true。
+-g file 检测文件是否设置了 SGID 位，如果是，则返回 true。   [-g $file] 返回 false。
+-k file 检测文件是否设置了粘着位 (Sticky Bit)，如果是，则返回 true。    [-k $file] 返回 false。
+-p file 检测文件是否是有名管道，如果是，则返回 true。   [-p $file] 返回 false。
+-u file 检测文件是否设置了 SUID 位，如果是，则返回 true。   [-u $file] 返回 false。
+-r file 检测文件是否可读，如果是，则返回 true。 [-r $file] 返回 true。
+-w file 检测文件是否可写，如果是，则返回 true。 [-w $file] 返回 true。
+-x file 检测文件是否可执行，如果是，则返回 true。   [-x $file] 返回 true。
+-s file 检测文件是否为空（文件大小是否大于 0），不为空返回 true。   [-s $file] 返回 true。
+-e file 检测文件（包括目录）是否存在，如果是，则返回 true。 [-e $file] 返回 true。
+其他检查符：
+
+-S: 判断某文件是否 socket。
+-L: 检测文件是否存在并且是一个符号链接。
+EOF
+
+file="/var/www/runoob/test.sh"
+if [ -r $file  ]
+then
+       echo "文件可读"
+   else
+          echo "文件不可读"
+fi
+if [ -w $file  ]
+then
+       echo "文件可写"
+   else
+          echo "文件不可写"
+fi
+if [ -x $file  ]
+then
+       echo "文件可执行"
+   else
+          echo "文件不可执行"
+fi
+if [ -f $file  ]
+then
+       echo "文件为普通文件"
+   else
+          echo "文件为特殊文件"
+fi
+if [ -d $file  ]
+then
+       echo "文件是个目录"
+   else
+          echo "文件不是个目录"
+fi
+if [ -s $file  ]
+then
+       echo "文件不为空"
+   else
+          echo "文件为空"
+fi
+if [ -e $file  ]
+then
+       echo "文件存在"
+   else
+          echo "文件不存在"
+fi
