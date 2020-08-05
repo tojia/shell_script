@@ -14,6 +14,11 @@ do
     echo ${file}
 done
 
+
+# 显示换行
+echo -e "OK! \n" # -e 开启转义
+echo "It is a test"
+
 echo -e  "------------1-------------------\n"
 
 
@@ -93,7 +98,6 @@ echo -e " 数组my_arr长度为： ${#my_arr[*]} \n"
 echo -e " 数组my_arr长度为： ${#my_arr[@]} \n"
 
 echo -e "-----------------5------------------"
-
 
 #定义字符串
 str1=hello
@@ -320,7 +324,7 @@ do
     let "int+=1"  #这里可以写 int++, "int++" int+=1都可以
 done
 
-echo -e "%s\n" "------------13. until------------------"
+echo -e "\n----------------13. until------------------"
 a=0
 
 until [ ! $a -lt 10 ]
@@ -330,7 +334,7 @@ do
 done
 
 
-printf  "%s\n" "--------------14. break----------------------"
+printf  "\n----------------14. break----------------------"
 
 :<<EOF
 #无限循环语法格式：
@@ -386,7 +390,7 @@ done
 # EOF
 
 
-echo -e "\n------------16. 重定向------------------"
+echo -e "\n------------16. 重定向------------------\n"
 
 who > users
 
@@ -398,7 +402,7 @@ cat << ASSS
 www.runoob.com
 ASSS
 
-echo -e "%s\n" "------------17. ``，(),(()),[[]],expr,等的用法------------------"
+echo -e "\n------------17. ``，(),(()),[[]],expr,等的用法--------------------\n"
 
 #  ``：引用一个命令的执行结果，$()也是一样
 #  在bash shell中, $()与``(反引号)都是用来做命令替换(command substitution)的。
@@ -413,13 +417,9 @@ echo -e "当前目录3: ${path1}"
 path2=$(pwd)
 echo -e "当前目录4: ${path2}"
 
-string=expr pwd
-echo -e "当前目录5: ${string}"
+string=expr pwd    #  =两边不能有空格
 
-lsall=`ls`
-echo -e "\`\`的返回值： ${lasll}"
-
-echo -e `ls -l`
+echo -e "ls -l输出：`ls -l`"
 
 
 :<<EOF
