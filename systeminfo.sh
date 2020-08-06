@@ -124,8 +124,13 @@ do
             echo -e "`du -sh ${path}`"
             # exit
             ;;
-        *) echo "结束"
+        8) echo "此电脑的IP地址:ip add\n"
+            ip add
+            exit
             # exit
+            ;;
+        9) echo "此电脑的电池剩余电量:\n"
+            
             ;;
     esac
 echo "
