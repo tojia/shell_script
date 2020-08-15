@@ -80,7 +80,7 @@ do
         16.   此电脑 ipython 版本
         0.    退出
     "
-    read -p " 请输入您的选项 [1~17] > " anum
+    read -p " 请输入您的选项 [0~16] > " anum
     clear
     case ${anum} in
         1) echo -e " 系统信息: $HOSTNAME\n"
@@ -138,7 +138,7 @@ do
         16) echo -e "此电脑python版本\n"
             echo -e "`python --version`"
             ;;
-        0) echo "输入错误." >&2
+        0) echo "退出......" >&2
             exit 1
     esac
 
