@@ -1,7 +1,7 @@
 #!/bin/bash
 #########################################################################
 # File Name: test.sh
-# Author:陈俊杰
+# Author: 陈俊杰
 # mail: 2716705056@qq.com
 # Created Time: 2019.11.16
 #########################################################################
@@ -16,8 +16,8 @@ done
 
 
 # 显示换行
-echo -e "OK! \n" # -e 开启转义
-echo "It is a test"
+ echo -e "OK! \n" # -e 开启转义
+ echo "It is a test"
 
 echo -e  "------------1-------------------\n"
 
@@ -28,12 +28,12 @@ echo -e 's 为 ${s}\n,lllllllllll\n'
 
 echo -e "s 为 ${s}\n, jjjjjj\n"
 
-# a修饰成只读变量
-readonly s
+# a 修饰成只读变量
+ readonly s
 
 S="dddddd\n"
 
-# unset 删除变量,但是无法删除只读变量
+# unset 删除变量，但是无法删除只读变量
 #unset a
 echo -e ${s}
 
@@ -58,15 +58,15 @@ echo ${b}
 e=""
 echo ${e}
 
-# 变量e定义为空值
-e=""
+# 变量 e 定义为空值
+ e=""
 echo ${e}  # Output: 没有任何输出
 
-let "e+=1" # 空值 + 1
+ let "e+=1" # 空值 + 1
 echo "e = ${e}"  # Output: 1
 
-# 变量f未定义
-echo "f = $f"   # Output: f =
+# 变量 f 未定义
+ echo "f = $f"   # Output: f =
 
 let "f+=1" 
 echo "f = ${f}" # Output: f = 1
@@ -75,32 +75,32 @@ echo -e "--------------3---------------\n"
 
 echo $#       #返回向脚本传递的参数的个数
 
-echo -e "$* \n"  #以一个单字符串显示所有向脚本传递的参数
+ echo -e "$* \n"  #以一个单字符串显示所有向脚本传递的参数
 
-echo -e "$@ \n"  #与$*相同，但是使用时加引号，并在引号中返回每个参数。
+ echo -e "$@ \n"  #与 $* 相同，但是使用时加引号，并在引号中返回每个参数。
 
-echo -e "-----------------4数组------------------"
+echo -e "-----------------4 数组 ------------------"
 
 my_arr=(value1 value2 value3 value4)
 
 echo -e "${my_arr[2]} \n"  #访问数组元素的一般格式
 
-# 遍历数组格式1
+# 遍历数组格式 1
 echo -e  "my_arr: ${my_arr[*]}\n"
 
-# 遍历数组格式2
+# 遍历数组格式 2
 echo -e "my_arr: ${my_arr[@]}\n"
 
-#获取数组长度格式1
-echo -e " 数组my_arr长度为： ${#my_arr[*]} \n"
+#获取数组长度格式 1
+echo -e " 数组 my_arr 长度为： ${#my_arr[*]} \n"
 
-#获取数组长度格式2
-echo -e " 数组my_arr长度为： ${#my_arr[@]} \n"
+#获取数组长度格式 2
+echo -e " 数组 my_arr 长度为： ${#my_arr[@]} \n"
 
 echo -e "-----------------5------------------"
 
 #定义字符串
-str1=hello
+ str1=hello
 str2='hello'
 str3="hello"
 
@@ -109,11 +109,11 @@ echo $str2
 echo $str3
 
 #获取字符串的长度
-my_str="hello world"
+ my_str="hello world"
 echo "my_str length: ${#my_str}"
 
 #字符串拼接
-str1="hello"
+ str1="hello"
 str2="world"
 
 str3=${str1}"  "${str2}
@@ -121,77 +121,77 @@ echo ${str3}
 
 #提取字符串
 
-#从位置1开始提取子串
-str="hello world"
+#从位置 1 开始提取子串
+ str="hello world"
 
 sub_str=${str:1}
 echo -e "sub_str1: ${sub_str}\n"
 
-#从位置1开始提取长度为3的子串
-str="hello world"
+#从位置 1 开始提取长度为 3 的子串
+ str="hello world"
 
 sub_str=${str:1:3}
 echo -e  "sub_str2: ${sub_str}\n"
 
-#------删除子串----------------------
+#------ 删除子串 ----------------------
 
 #表达式                        	含义
-#${string#substring}	       从string的开头, 删除最短匹配substring的子串
-#${string##substring}	       从string的开头, 删除最长匹配substring的子串
-#${string%substring}	       从string的结尾, 删除最短匹配substring的子串
-#${string%%substring}	       从string的结尾, 删除最长匹配substring的子串
+#${string#substring}	       从 string 的开头，删除最短匹配 substring 的子串
+#${string##substring}	       从 string 的开头，删除最长匹配 substring 的子串
+#${string% substring}	       从 string 的结尾，删除最短匹配 substring 的子串
+#${string%% substring}	       从 string 的结尾，删除最长匹配 substring 的子串
 
 #记忆：
 
-#   #表示从头匹配，%表示从尾匹配
-#   一个符号（#或者%）表示最短匹配，两个符号（##或者%%）表示最长匹配
+#   #表示从头匹配，% 表示从尾匹配
+#   一个符号（# 或者 %）表示最短匹配，两个符号（## 或者 %%）表示最长匹配
 
-str="abcabcdefabcabc"
+ str="abcabcdefabcabc"
 
-# 从str的开头,删除最短匹配的以a开头c结尾的子串
-# 将删除最左端的abc
+# 从 str 的开头，删除最短匹配的以 a 开头 c 结尾的子串
+# 将删除最左端的 abc
 # 输出：abcdefabcabc
 echo -e  " str1 = ${str#a*c} \n"  
 
-# 从str的开头,删除最长匹配以a开头b结尾的子串
-# 将删除abcabcdefabcab
+# 从 str 的开头，删除最长匹配以 a 开头 b 结尾的子串
+# 将删除 abcabcdefabcab
 # 输出：c
 echo -e  " str2 = ${str##a*b}\n" 
 
-# 从str的结尾,删除最短匹配以a开头c结尾的子串
-# 将删除最右端的abc
+# 从 str 的结尾，删除最短匹配以 a 开头 c 结尾的子串
+# 将删除最右端的 abc
 # 输出：abcabcdefabc
 echo -e  " str3 = ${str%a*c} \n"  
 
-# 从str的结尾,删除最长匹配以a开头c结尾的子串
+# 从 str 的结尾，删除最长匹配以 a 开头 c 结尾的子串
 # 将删除整个字符串
 # 输出：空
-echo -e  " str4 = ${str%%a*b}\n" 
+ echo -e  " str4 = ${str%%a*b}\n" 
 
 
-# ----------------------------------------------替换子串-----------------
+# ---------------------------------------------- 替换子串 -----------------
 
-#  ---表达式-------------------------------含义------------------
-#  ${string/substring/replacement}	      使用$replacement 来代替第一个匹配的$substring
-#  ${string//substring/replacement}	      使用$replacement 代替所有匹配的$substring
-#  ${string/#substring/replacement}    	  如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
-#  ${string/%substring/replacement}	      如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring
+#  --- 表达式 ------------------------------- 含义 ------------------
+#  ${string/substring/replacement}	      使用 $replacement 来代替第一个匹配的 $substring
+#  ${string//substring/replacement}	      使用 $replacement 代替所有匹配的 $substring
+#  ${string/#substring/replacement}    	  如果 $string 的前缀匹配 $substring, 那么就用 $replacement 来代替匹配到的 $substring
+#  ${string/% substring/replacement}	      如果 $string 的后缀匹配 $substring, 那么就用 $replacement 来代替匹配到的 $substring
 
 #实例：
 
 str="abcdefabc"
 
-# 用hello替换第一个abc
+# 用 hello 替换第一个 abc
 echo -e  " STR1 = ${str/"abc"/"hello"} \n"    # 输出：hellodefabc
 
-# 用hello替换所有的abc
+# 用 hello 替换所有的 abc
 echo -e  " STR2 = ${str//"abc"/"hello"} \n"   # 输出：hellodefhello
 
 # 前缀匹配替换
-echo -e  " STR3 = ${str/#"abc"/"world"} \n"   # 输出：worlddefabc
+ echo -e  " STR3 = ${str/#"abc"/"world"} \n"   # 输出：worlddefabc
 
 # 后缀匹配替换
-echo -e  " STR4 = ${str/％"abc"/"world"} \n"  # 输出：abcdefworld
+ echo -e  " STR4 = ${str/％"abc"/"world"} \n"  # 输出：abcdefworld
 
 
 echo -e "-----------------6------------------"
@@ -214,7 +214,7 @@ echo -e "${greeting_3} \n"
 echo -e "${greeting_4} \n"
 
 
-echo -e "请输入您的名字：\n"
+echo -e " 请输入您的名字：\n"
 read name
 echo -e "hello, ${name}\n"
 echo -e "hello, ${1}\n"
@@ -223,32 +223,32 @@ echo -e "it is dick\n" > test.txt
 
 echo `date`
 
-printf "%-10s %-8s %-4s\n"    姓名 性别 体重kg  
-printf "%-10s %-8s %-4.2f\n"  "郭靖" 男 "66.1234"
-printf "%-10s %-8s %-4.2f\n"  '杨过' 男 48.6543 
+printf "%-10s %-8s %-4s\n"    姓名 性别 体重 kg  
+printf "%-10s %-8s %-4.2f\n"  " 郭靖 " 男 "66.1234"
+printf "%-10s %-8s %-4.2f\n"  ' 杨过' 男 48.6543 
 printf "%-10s %-8s %-4.2f\n"  郭芙 女 47.9876 
 
 printf "%s\n" "aaaaaaaa" "ssssss"
 
 printf  "%s\n" "--------------7----------------------"
-# format-string为双引号
-printf "%d %s\n" 1 "abc"
+# format-string 为双引号
+ printf "%d %s\n" 1 "abc"
 
 # 单引号与双引号效果一样 
 printf '%d %s\n' 1 "abc" 
 
 # 没有引号也可以输出
-printf "%s\n" abcdef
+ printf "%s\n" abcdef
 
 # 格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用
-printf "%s\n" abc def
+ printf "%s\n" abc def
 
 printf "%s\n" 123 456
 
 printf "%s %s %s\n" a b c d e f g h i j
 
-# 如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替
-printf "%s and %d \n" 
+# 如果没有 arguments，那么 % s 用 NULL 代替，% d 用 0 代替
+ printf "%s and %d \n" 
 
 printf  "%s\n" "--------------8----------------------"
 
@@ -267,16 +267,16 @@ a=5
 b=6
 
 result=$[a+b] # 注意等号两边不能有空格
-echo -e  "result 为： $result \n"
+ echo -e  "result 为： $result \n"
 
 result=$[$a+$b] # 注意等号两边不能有空格
-echo -e  "result 为： $result \n"
+ echo -e  "result 为： $result \n"
 
-result1=$(($a+$b)) # 注意等号两边不能有空格,a,b不能用{}括起来
-echo -e  "result1 为： $result1 \n"
+result1=$(($a+$b)) # 注意等号两边不能有空格，a,b 不能用 {} 括起来
+ echo -e  "result1 为： $result1 \n"
 
 result1=$((a+b)) # 注意等号两边不能有空格
-echo -e  "result1 为： $result1 \n"
+ echo -e  "result1 为： $result1 \n"
 
 
 printf  "%s\n" "--------------9. if else ----------------------"
@@ -285,26 +285,26 @@ num1="ru1noob"
 num2="runoob"
 if test $num1 = $num2
 then
-    echo '两个字符串相等!'
+    echo ' 两个字符串相等！'
 else
-    echo '两个字符串不相等!'
+    echo ' 两个字符串不相等！'
 fi
 
 printf  "%s\n" "--------------10. case----------------------"
 
-echo '输入 1 到 4 之间的数字:'
-echo '你输入的数字为:'
+echo ' 输入 1 到 4 之间的数字:'
+echo ' 你输入的数字为:'
 read aNum
 case $aNum in
-    1)  echo '你选择了 1'
+    1)  echo ' 你选择了 1'
     ;;
-    2)  echo '你选择了 2'
+    2)  echo ' 你选择了 2'
     ;;
-    3)  echo '你选择了 3'
+    3)  echo ' 你选择了 3'
     ;;
-    4)  echo '你选择了 4'
+    4)  echo ' 你选择了 4'
     ;;
-    *)  echo '你没有输入 1 到 4 之间的数字'
+    *)  echo ' 你没有输入 1 到 4 之间的数字'
     ;;
 esac
 
@@ -321,8 +321,8 @@ int=1
 while((${int}<=10))
 do
     echo ${int}
-    let "int+=1"  #这里可以写 int++, "int++" int+=1都可以
-done
+    let "int+=1"  #这里可以写 int++, "int++" int+=1 都可以
+ done
 
 echo -e "\n----------------13. until------------------"
 a=0
@@ -338,31 +338,28 @@ printf  "\n----------------14. break----------------------"
 
 :<<EOF
 #无限循环语法格式：
-
 while :
 do
     command
 done
-或者
-while true
+ 或者
+ while true
 do
     command
 done
-或者
-
-for (( ; ; ))
-
+ 或者
+ for (( ; ; ))
 EOF
 
 
-while true  #或while :
+while true  #或 while :
 do
-    echo -n "请输入一个数字:"
+    echo -n " 请输入一个数字:"
     read aNum
     case ${aNum} in
-        1|2|3|4|5) echo -e  "你输入的数字为${aNum}\n"
+        1|2|3|4|5) echo -e  " 你输入的数字为 ${aNum}\n"
             ;;
-        *) echo -e  "你输入的数字不是1到5之间的数字，游戏结束\n"
+        *) echo -e  " 你输入的数字不是 1 到 5 之间的数字，游戏结束 \n"
             break
             ;;
     esac
@@ -374,14 +371,14 @@ printf  "%s\n" "--------------15. continue----------------------"
 # :<<EOF
 while :
 do
-    echo -n "输入 1 到 5 之间的数字: "
+    echo -n " 输入 1 到 5 之间的数字: "
     read aNum
     case $aNum in
-        1|2|3|4|5) echo -e "你输入的数字为 $aNum! \n"
+        1|2|3|4|5) echo -e " 你输入的数字为 $aNum! \n"
         ;;
-        *) echo -e "你输入的数字不是 1 到 5 之间的! \n"
+        *) echo -e " 你输入的数字不是 1 到 5 之间的！\n"
             # continue
-            echo "游戏结束"
+            echo " 游戏结束 "
             break
         ;;
     esac
@@ -390,43 +387,43 @@ done
 # EOF
 
 
-echo -e "\n------------16. 重定向------------------\n"
+echo -e "\n------------16. 重定向 ------------------\n"
 
 who > users
 
 wc -l < users
 
 cat << ASSS
-欢迎来到
+ 欢迎来到
 菜鸟教程
-www.runoob.com
+ www.runoob.com
 ASSS
 
-echo -e "\n------------17. ``，(),(()),[[]],expr,等的用法--------------------\n"
+echo -e "\n------------17. ``，(),(()),[[]],expr, 等的用法 --------------------\n"
 
-#  ``：引用一个命令的执行结果，$()也是一样
-#  在bash shell中, $()与``(反引号)都是用来做命令替换(command substitution)的。
+#  ``：引用一个命令的执行结果，$() 也是一样
+#  在 bash shell 中，$() 与 ``(反引号) 都是用来做命令替换 (command substitution) 的。
 
-echo -e "当前目录1:`pwd`"
+echo -e " 当前目录 1:`pwd`"
 
-echo -e "当前目录2:$(pwd)"
+echo -e " 当前目录 2:$(pwd)"
 
 path1=`pwd`
-echo -e "当前目录3: ${path1}"
+echo -e " 当前目录 3: ${path1}"
 
 path2=$(pwd)
-echo -e "当前目录4: ${path2}"
+echo -e " 当前目录 4: ${path2}"
 
-string=expr pwd    #  =两边不能有空格
+string=expr pwd    #  = 两边不能有空格
 
-echo -e "ls -l输出：`ls -l`"
+ echo -e "ls -l 输出：`ls -l`"
 
 
 :<<EOF
-echo `echo \\` 与 echo $(echo \\)的输出分别是什么？解释原因。
-原因： ``里面的\是一个特殊字符，可以用它来引用特殊的字符（当然包括它自身\），而$()里面的\只是普通字符。
-echo `echo \\`命令，里层的echo \\得到的结果\，于是外层命令为echo \,输出结果就为空了。
-echo $(echo \\)命令，里层的\不再作为特殊字符，其输出就是\\,于是外层命令为echo \\,输出结果就为\了。
+echo `echo \\` 与 echo $(echo \\) 的输出分别是什么？解释原因。
+原因： `` 里面的 \ 是一个特殊字符，可以用它来引用特殊的字符（当然包括它自身 \），而 $() 里面的 \ 只是普通字符。
+echo `echo \\` 命令，里层的 echo \\ 得到的结果 \，于是外层命令为 echo \, 输出结果就为空了。
+echo $(echo \\) 命令，里层的 \ 不再作为特殊字符，其输出就是 \\, 于是外层命令为 echo \\, 输出结果就为 \ 了。
 EOF
 
 echo `echo \\`
@@ -452,25 +449,23 @@ echo " val4 ${x} + ${y} = $val4"
 
 
 :<<EOF
-[]即为test命令的另一种形式。
+[] 即为 test 命令的另一种形式。
 你必须在左括号的右侧和右括号的左侧各加一个空格，否则会报错。
 大于符号或小于符号必须要转义，否则会被理解成重定向。
-
 -eq 检测两个数是否相等，相等返回 true。                     [$a -eq $b] 返回 false。
 -ne 检测两个数是否不相等，不相等返回 true。                 [$a -ne $b] 返回 true。
 -gt 检测左边的数是否大于右边的，如果是，则返回 true。       [$a -gt $b] 返回 false。
 -lt 检测左边的数是否小于右边的，如果是，则返回 true。       [$a -lt $b] 返回 true。
 -ge 检测左边的数是否大于等于右边的，如果是，则返回 true。   [$a -ge $b] 返回 false。
 -le 检测左边的数是否小于等于右边的，如果是，则返回 true。   [$a -le $b] 返回 true。
-
 EOF
 
 a=1
-if [ $a -ge  0 ]  #对于数字，-eq,-ne,-gt,-ge,-lt,-le,或者转义，但是只能转义">,<"，\<,\>
+if [ $a -ge  0 ]  #对于数字，-eq,-ne,-gt,-ge,-lt,-le, 或者转义，但是只能转义 ">,<"，\<,\>
 then
-    echo -e "a大于等于0\n"
+    echo -e "a 大于等于 0\n"
 else
-    echo -e "a小于0\n"
+    echo -e "a 小于 0\n"
 fi
 
 
@@ -478,111 +473,99 @@ str="abccc"
 
 if [ ${str} = "abc" ]  #对于字符串，= ，！=， -z ，-n 
 then 
-    echo -e "str等于\"abc\" \n"
+    echo -e "str 等于 \"abc\" \n"
 else
-    echo -e "str不等于\"abc\" \n"
+    echo -e "str 不等于 \"abc\" \n"
 fi
 
 
 :<<EOF
-(( ))及[[ ]] :
-它们分别是[ ]的针对数学比较表达式和字符串表达式的加强版。
-
-$(())是用来作整数运算的。
-
-在bash中， $(())的整数运算符号大致有这些：
-
-+ - * /    分别为"加、减、乘、除"。
-%          余数运算,(模数运算)
+(()) 及 [[ ]] :
+ 它们分别是 [ ] 的针对数学比较表达式和字符串表达式的加强版。
+$(()) 是用来作整数运算的。
+在 bash 中， $(()) 的整数运算符号大致有这些：
++ - * /    分别为 "加、减、乘、除"。
+%          余数运算，(模数运算)
 ++          自加
---          自减
-
-常见的用于(())的测试符号有如下这些：
-
+ --          自减
+常见的用于 (()) 的测试符号有如下这些：
 符号	符号名称
-<	   小于号
->   	大于号
-<=	   小于或等于
->=	   大于或等于
-==	   等于
-!=	   不等于
-
-(( ))不需要再将表达式里面的大小于符号转义，除了可以使用标准的数学运算符外，还增加了以下符号：
-
+ <	   小于号
+ >   	大于号
+ <=	   小于或等于
+ >=	   大于或等于
+ ==	   等于
+ !=	   不等于
+ (()) 不需要再将表达式里面的大小于符号转义，除了可以使用标准的数学运算符外，还增加了以下符号：
 val++
 val--
 ++val
 --val
 !          逻辑求反
-&&         逻辑和
-||         逻辑或
-**         幂运算
-<<         左移运算符
->>         右移运算符
-~          “取反”运算符
-&          “按位与”运算符
-|          位布尔或
-^          “异或”运算符
-
-双括号中的变量可以在其前面加 $符号来替换， 也可以不用。括号内支持多个表达式用逗号分开。
-单纯用 (( )) 也可重定义变量值，其实就是赋值运算符，比如 a=5; ((a++)) 可将 $a 重定义为6
-
-使用[[ ... ]]条件判断结构，而不是[ ... ]，能够防止脚本许多逻辑错误，比如，&&、||、<和> 操作符能够
-正常存在于[[ ]]条件判断结构中，但是如果出现在[ ]结构中的话，会报错。比如可以直
-接使用if [[ $a != 1 && $a != 2 ]], 如果不适用双括号, 则为if [ $a -ne 1 ] && [ $a != 2 ]或者if [ $a -ne 1 -a $a != 2 ]。
-
+ &&         逻辑和
+ ||         逻辑或
+ **         幂运算
+ <<         左移运算符
+ >>         右移运算符
+ ~          “取反” 运算符
+ &          “按位与” 运算符
+ |          位布尔或
+ ^          “异或” 运算符
+双括号中的变量可以在其前面加 $ 符号来替换， 也可以不用。括号内支持多个表达式用逗号分开。
+单纯用 (()) 也可重定义变量值，其实就是赋值运算符，比如 a=5; ((a++)) 可将 $a 重定义为 6
+ 使用 [[...]] 条件判断结构，而不是 [ ... ]，能够防止脚本许多逻辑错误，比如，&&、||、< 和 > 操作符能够
+正常存在于 [[]] 条件判断结构中，但是如果出现在 [ ] 结构中的话，会报错。比如可以直
+接使用 if [[$a != 1 && $a != 2]], 如果不适用双括号，则为 if [ $a -ne 1 ] && [ $a != 2 ] 或者 if [ $a -ne 1 -a $a != 2 ]。
 EOF
 
 a=-1
-if (( $a >=  0 )) #也可以用if [[ $a > 0 ]]但是不能用if [[ $a >= 0 ]]
+if (( $a >=  0 )) #也可以用 if [[$a> 0 ]] 但是不能用 if [[ $a >= 0 ]]
 then
-    echo -e "a大于等于0\n"
+    echo -e "a 大于等于 0\n"
 else
-    echo -e "a小于0\n"
+    echo -e "a 小于 0\n"
 fi
 
 
 a=12
 if [[ ${a}!=1 && ${a} != 2 ]]
 then
-    echo -e "a不等于1且a不等于2\n"
+    echo -e "a 不等于 1 且 a 不等于 2\n"
 else
-    echo -e "a等于1或者等于2\n"
+    echo -e "a 等于 1 或者等于 2\n"
 fi
 
-echo -e "请输入你想进入的目录：\n"
+echo -e " 请输入你想进入的目录：\n"
 read path
 #cd ${path}
 
 if [[ ${path} = "/home/jack/" ]]
 then
-    echo -e "进入家目录\n"
+    echo -e " 进入家目录 \n"
     cd ${path}
 else
-    echo -e "进入非家目录\n"
+    echo -e " 进入非家目录 \n"
     cd ${path}
 fi
 
-echo -e "当前目录:`pwd`"
+echo -e " 当前目录:`pwd`"
 cd /home/jack/
 
-echo -e "当前目录:`pwd`"
+echo -e " 当前目录:`pwd`"
 
-read -p "请输入你的爱好：" -t 10 named
+read -p " 请输入你的爱好：" -t 10 named
 
 echo ${named}
 
-echo -e "\n------------------------18. 文件测试-------------------------"
+echo -e "\n------------------------18. 文件测试 -------------------------"
 
 
 <<EOF
-文件测试运算符
+ 文件测试运算符
 文件测试运算符用于检测 Unix 文件的各种属性。
-
 属性检测描述如下：
-
 操作符  说明    举例
--b file 检测文件是否是块设备文件，如果是，则返回 true。 [-b $file] 返回 false。
+ -b file 检测文件是否是块设备文件，如果是，则返回 true。 [-b $file] 返回 false。
 -c file 检测文件是否是字符设备文件，如果是，则返回 true。   [-c $file] 返回 false。
 -d file 检测文件是否是目录，如果是，则返回 true。   [-d $file] 返回 false。
 -f file 检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。 [-f $file] 返回 true。
@@ -596,7 +579,6 @@ echo -e "\n------------------------18. 文件测试-------------------------"
 -s file 检测文件是否为空（文件大小是否大于 0），不为空返回 true。   [-s $file] 返回 true。
 -e file 检测文件（包括目录）是否存在，如果是，则返回 true。 [-e $file] 返回 true。
 其他检查符：
-
 -S: 判断某文件是否 socket。
 -L: 检测文件是否存在并且是一个符号链接。
 EOF
@@ -604,43 +586,43 @@ EOF
 file="/var/www/runoob/test.sh"
 if [ -r $file  ]
 then
-       echo "文件可读"
+       echo " 文件可读 "
    else
-          echo "文件不可读"
+          echo " 文件不可读 "
 fi
 if [ -w $file  ]
 then
-       echo "文件可写"
+       echo " 文件可写 "
    else
-          echo "文件不可写"
+          echo " 文件不可写 "
 fi
 if [ -x $file  ]
 then
-       echo "文件可执行"
+       echo " 文件可执行 "
    else
-          echo "文件不可执行"
+          echo " 文件不可执行 "
 fi
 if [ -f $file  ]
 then
-       echo "文件为普通文件"
+       echo " 文件为普通文件 "
    else
-          echo "文件为特殊文件"
+          echo " 文件为特殊文件 "
 fi
 if [ -d $file  ]
 then
-       echo "文件是个目录"
+       echo " 文件是个目录 "
    else
-          echo "文件不是个目录"
+          echo " 文件不是个目录 "
 fi
 if [ -s $file  ]
 then
-       echo "文件不为空"
+       echo " 文件不为空 "
    else
-          echo "文件为空"
+          echo " 文件为空 "
 fi
 if [ -e $file  ]
 then
-       echo "文件存在"
+       echo " 文件存在 "
    else
-          echo "文件不存在"
+          echo " 文件不存在 "
 fi
