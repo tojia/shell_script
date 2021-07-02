@@ -1,0 +1,4 @@
+xiaoming m 90
+xiaohong f 93
+xiaohei m 80
+xiaofang f 99
