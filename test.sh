@@ -110,7 +110,7 @@ echo -e  "${DEEPGREEN_BLACK}深绿底黑字${COLOR_RESET}   ${DEEPGREEN_RED}深�
 echo -e  "${WHITE_BLACK}白底黑字${COLOR_RESET}   ${WHITE_RED}白底红字${COLOR_RESET}   ${WHITE_GREEN}白底绿字${COLOR_RESET}   ${WHITE_YELLOW}白底黄字${COLOR_RESET}   ${WHITE_BLUE}白底蓝字${COLOR_RESET}  ${WHITE_PURTPLE}白底紫字${COLOR_RESET}   ${WHITE_DEEPGREEN}白底深绿字${COLOR_RESET}   ${WHITE_WHITE}白底白字${COLOR_RESET}\n"
 
 
-PASSWD="@chen1013" 
+PASSWD="chen" 
 
 echo -e "\e[46;31;1m\t\t\t\t\t\t 系统更新.....\e[0m \n"
 
@@ -122,4 +122,13 @@ echo -e "\033[41m\033[37m\033[1m\033[4m红底+白字+高亮+下划线\033[0m \n"
 
 # echo ${PASSWD}  | sudo -S apt update
 
+echo -e "${GREEN_BLACK}************************* 下载github上的一些配置文件,并分发到各自的目录 *************************${COLOR_RESET}\n"
+cd
 
+URL=https://github.com/junjiecjj/configure_file.git
+downloaddir=~/tmp/confile-file
+#git clone    ${URL}  ${downloaddir}
+
+
+
+cp ${downloaddir}/vimrc-file/vimrc_use  ~/.vimrc1
