@@ -88,6 +88,8 @@ echo  -e  "${GREEN_BLACK}************************* 1、系统更新 ************
 echo ${PASSWD}  |  sudo -S apt update
 echo ${PASSWD}  |  sudo -S apt upgrade -y
 
+echo  -e  "${GREEN_BLACK}************************* 2、安装FVWM *************************${COLOR_RESET}\n"
+echo ${PASSWD}  |  sudo -S apt install fvwm
 
 echo -e "${GREEN_BLACK}************************* 下载github上的一些配置文件,并分发到各自的目录 *************************${COLOR_RESET}\n"
 cd
@@ -98,20 +100,55 @@ git clone    ${URL}  ${downloaddir}
 
 
 echo -e "${PURPLE_BLACK}************************* 复制.vimrc *************************${COLOR_RESET}\n"
-cp ${downloaddir}/vimrc-file/vimrc_use  ~/.vimrc
-cp ${downloaddir}/zsh/zshrc  ~/.zshrc
-cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault
-cp ${downloaddir}/xterm/molokai_xterm           ~/.Xdefault_molokai
-cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault_seabird
-cp ${downloaddir}/xterm/seoul256_xterm  		~/.Xdefault_seoul256
-cp ${downloaddir}/xterm/solarized_light_xterm  	~/.Xdefault_solarized_light
-cp ${downloaddir}/xterm/solarized_dark_xterm  	~/.Xdefault_solarized_dark
+echo ${PASSWD}  |  sudo -S   cp  ${downloaddir}/vimrc-file/vimrc_use  ~/.vimrc
 
+echo -e "${PURPLE_BLACK}************************* 复制.zshrc *************************${COLOR_RESET}\n"
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/zsh/zshrc  ~/.zshrc
+
+echo -e "${PURPLE_BLACK}************************* 复制.Xdefault *************************${COLOR_RESET}\n"
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/molokai_xterm           ~/.Xdefault_molokai
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault_seabird
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seoul256_xterm  		~/.Xdefault_seoul256
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/solarized_light_xterm  	~/.Xdefault_solarized_light
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/solarized_dark_xterm  	~/.Xdefault_solarized_dark
+
+
+echo -e "${PURPLE_BLACK}************************* 复制vim颜色配置文件 *************************${COLOR_RESET}\n"
 echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/vim/*   	/usr/share/vim/vim82/colors/
+echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/vim/*   	/usr/share/vim/vim81/colors/
 
+
+echo -e "${PURPLE_BLACK}************************* 复制kitty配置文件 *************************${COLOR_RESET}\n"
+downloaddir=~/tmp/confile-file
+kitty_dir=~/.config/kitty
+echo -e ${downloaddir}
+echo -e  ${kitty_dir} 
+if [ ! -d "${kitty_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${kitty_dir}  ${COLOR_RESET}\n"
+    mkdir -p ${kitty_dir}
+else
+    echo -e  "${WHITE_BLUE} 目录${kitty_dir}已经存在  ${COLOR_RESET}\n"
+fi
+
+cp ${downloaddir}/kitty/*   	${kitty_dir}
+
+
+echo -e "${PURPLE_BLACK}************************* 复制alacritty配置文件 *************************${COLOR_RESET}\n"
+kitty_dir=~/.config/alacritty
+if [ ! -d "${kitty_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${kitty_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${kitty_dir}"
+else
+    echo -e  "${WHITE_BLUE} 目录${kitty_dir}已经存在  ${COLOR_RESET}\n"
+fi
+
+cp ${downloaddir}/kitty/*   	${kitty_dir}
+
+echo -e "${PURPLE_BLACK}************************* 复制neovim配置文件 *************************${COLOR_RESET}\n"
 URL=https://github.com/junjiecjj/nvim.git
 
-
+echo -e "${PURPLE_BLACK}************************* 安装slock *************************${COLOR_RESET}\n"
 URL=https://github.com/junjiecjj/slock.git
 
 echo -e "${GREEN_BLACK}************************* 安装 neovim并使用vim-plug插件 *************************${COLOR_RESET}\n"
@@ -137,36 +174,37 @@ echo -e "${GREEN_BLACK}************************* 3、安装字体 微软字体�
 echo  ${PASSWD}  |  sudo -S apt install ttf-mscorefonts-installer -y
 echo  ${PASSWD}  |  sudo -S fc-cache -f -v
 
+echo -e "${GREEN_BLACK}************************* 5、安装 7-zip解压缩  等 *************************${COLOR_RESET}\n"
+echo ${PASSWD}  |  sudo -S apt install p7zip-full p7zip-rar
 
 echo -e "${GREEN_BLACK}************************* 4、安装字体 FiraCode 等 *************************${COLOR_RESET} \n"
-firacode_font_dir="/usr/share/fonts/truetype/firacode"
-if [ ! -d "${firacode_font_dir}" ]; then
-    echo "mkdir -p ${firacode_font_dir}"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${firacode_font_dir}"
+install_dir=/usr/share/fonts/truetype/firacode
+if [ ! -d "${install_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
 else
-    echo -e  "目录已经存在 ${firacode_font_dir} \n"
+    echo -e  "目录已经存在 ${install_dir} \n"
 fi
 
 for type in Bold Light Medium Regular Retina; do
-    file_path="${firacode_font_dir}/FiraCode-${type}.ttf"
+    file_path="${install_dir}/FiraCode-${type}.ttf"
     file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
     if [ ! -e "${file_path}" ]; then
         echo "wget -O $file_path $file_url"
-        wget -O "${file_path}" "${file_url}"
+        wget  -c  -O "${file_path}" "${file_url}"
     else
 		echo -e  "目录已经存在 ${file_path} \n"
     fi;
 done
 
-echo -e  "fc-cache -f \n"
-cd firacode_font_dir
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
-cd
+echo -e "fc-cache -f \n"
+cd   ${installdir}
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
 
 
-echo -e "${GREEN_BLACK}************************* 5、安装 7-zip解压缩  等 *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S apt install p7zip-full p7zip-rar
 
 echo -e "${GREEN_BLACK}************************* 5、安装字体 Nerd Fonts  等 *************************${COLOR_RESET}\n"
 echo -e "${PURPLE_BLACK}************************* 5.1、安装字体 FiraCode Nerd Fonts   等 *************************${COLOR_RESET}\n"
@@ -174,12 +212,12 @@ echo -e "${PURPLE_BLACK}************************* 5.1、安装字体 FiraCode Ne
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在~/下载/nerdfonts/下 ${COLOR_RESET} \n"
 URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 downloaddir=~/tmp/FiracodeNerd.zip
-wget -O  ${downloaddir}  ${URL}
+wget  -c -O  ${downloaddir}  ${URL}
 
-install_dir="/usr/share/fonts/truetypes/nerdfont/FiraCodeNerdFont"
+install_dir=/usr/share/fonts/truetype/nerdfont
 if [ ! -d "${install_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
+    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p  ${install_dir}
 else
     echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
 fi
@@ -189,21 +227,24 @@ fi
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
 echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
 
-cd   ${installdir}
 echo -e "fc-cache -f \n"
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
+cd   ${installdir}
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
 echo -e "${PURPLE_BLACK}************************* 5.2、安装字体 JetBrainsMono Nerd Fonts   等 *************************${COLOR_RESET}\n"
 
+cd
 URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
 downloaddir=~/tmp/JetBrainsMonoNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
-wget -O  ${downloaddir}  ${URL}
+wget  -c -O  ${downloaddir}  ${URL}
 
-install_dir="/usr/share/fonts/truetypes/nerdfont/JetBrainsMonoNerdFont"
+install_dir=/usr/share/fonts/truetype/nerdfont
 if [ ! -d "${install_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
+    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p  ${install_dir}
 else
     echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
 fi
@@ -213,86 +254,125 @@ fi
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
 echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
 
-cd   ${installdir}
 echo -e "fc-cache -f \n"
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
+cd   ${installdir}
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
 echo -e "${PURPLE_BLACK}************************* 5.3、安装字体 Sauce Code Pro Nerd Font   等 *************************${COLOR_RESET}\n"
 
-
+cd
 URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip
 downloaddir=~/tmp/SauceCodeProNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
-wget -O  ${downloaddir}  ${URL}
+wget -c -O  ${downloaddir}  ${URL}
 
-install_dir="/usr/share/fonts/truetypes/nerdfont/SauceCodeProNerdFont"
+install_dir=/usr/share/fonts/truetype/nerdfont
 if [ ! -d "${install_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
+    echo  ${PASSWD}  |  sudo -S mkdir -p ${install_dir}
 else
     echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
 fi
 
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
-echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
+echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${install_dir} ${COLOR_RESET}"
 echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
 
-cd   ${installdir}
 echo -e "fc-cache -f \n"
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
+cd   ${installdir}
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
 echo -e "${PURPLE_BLACK}************************* 5.4、安装字体 Hack Nerd Font   等 *************************${COLOR_RESET}\n"
 
-
+cd
 URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
 downloaddir=~/tmp/HackNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
-wget -O  ${downloaddir}  ${URL}
+wget -c  -O  ${downloaddir}  ${URL}
 
-install_dir="/usr/share/fonts/truetypes/nerdfont/HackNerdFont"
+installdir=/usr/share/fonts/truetype/nerdfont
 if [ ! -d "${install_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
+    echo  ${PASSWD}  |  sudo -S mkdir -p ${installdir}
 else
-    echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
+echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
 
-cd   ${installdir}
 echo -e "fc-cache -f \n"
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
+cd   ${installdir}
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
 
 echo -e "${GREEN_BLACK}************************* 6、安装字体 JetBrains Fonts 等 *************************${COLOR_RESET}\n"
 
 echo -e  "${WHITE_BLUE}去网址：https://www.jetbrains.com/lp/mono/,下载字体，存放在~/下载/jetbrains/下  ${COLOR_RESET}\n"
 
+cd
 URL=https://download.jetbrains.com/fonts/JetBrainsMono-2.225.zip?_ga=2.157492538.1887783421.1625452183-1434134147.1617093312
 downloaddir=~/tmp/JetBrains.zip
-wget -O  ${downloaddir}  ${URL}
+wget  -c -O  ${downloaddir}  ${URL}
 
 
-installdir="/usr/share/fonts/truetype/jetbrains"
+installdir=/usr/share/fonts/truetype/jetbrains1
 if [ ! -d "${installdir}" ]; then
 	echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${installdir}"
+    echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
 else
-    echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o~/tmp/jetbrains
 
 
-cd   ${installdir}
+echo ${PASSWD}  |  sudo -S   cp ~/tmp/jetbrains/fonts/ttf/*   	${installdir}/
+echo ${PASSWD}  |  sudo -S   cp ~/tmp/jetbrains/fonts/variable/*   	${installdir}/
+echo ${PASSWD}  |  sudo -S   cp ~/tmp/jetbrains/fonts/webfonts/*   	${installdir}/
+
 echo -e "fc-cache -f \n"
-echo  ${PASSWD}  |  sudo -S fc-cache -f -v
+cd   ${installdir}
+echo -e `pwd`
+echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
+echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
+echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
+echo -e "${GREEN_BLACK}************************* 6、安装 powerline 字体 *************************${COLOR_RESET}\n"
+
+cd
+# 下载
+git clone https://github.com/powerline/fonts.git
+
+# 进入文件夹并安装
+cd fonts
+./install.sh
+
+echo -e "${GREEN_BLACK}************************* 6、安装 Awesome-Terminal Fonts 字体 *************************${COLOR_RESET}\n"
+
+cd
+git clone https://github.com/gabrielelana/awesome-terminal-fonts.git
+cd awesome-terminal-fonts
+./install.sh
+
+
+echo -e "${GREEN_BLACK}************************* 6、安装 nerd-fonts 字体 *************************${COLOR_RESET}\n"
+cd
+#下载
+git clone https://github.com/ryanoasis/nerd-fonts.git
+cd nerd-fonts
+#安装同上
+./install.sh
 
 echo -e "7${GREEN_BLACK}************************* 安装 screenkey *************************${COLOR_RESET} \n"
 
@@ -318,6 +398,8 @@ echo -e "${GREEN_BLACK}************************* 10、在 Ubuntu 20.04 上安装
 echo  ${PASSWD}  |  sudo -S apt zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+echo -e "${GREEN_BLACK}*************************  安装 powerlevel9k  *************************${COLOR_RESET} \n"
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
 echo  "${WHITE_BLUE}************************* 安装incr *************************${COLOR_RESET}\n"
 cd .oh-my-zsh/plugins/
