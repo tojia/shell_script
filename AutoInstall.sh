@@ -81,7 +81,7 @@ WHITE_WHITE='\e[47;37;1m'
 COLOR_RESET='\e[0m'
 
 
-PASSWD="@chen1013"
+PASSWD="xxxxxx123"
 
 echo  -e  "${GREEN_BLACK}************************* 1、系统更新 *************************${COLOR_RESET}\n"
 
@@ -121,9 +121,9 @@ echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/vim/*   	/usr/share/vim/vim81/col
 
 echo -e "${PURPLE_BLACK}************************* 复制kitty配置文件 *************************${COLOR_RESET}\n"
 downloaddir=~/tmp/confile-file
-kitty_dir=~/.config/kitty
+kitty_dir=~/.config/kitty1
 echo -e ${downloaddir}
-echo -e  ${kitty_dir} 
+echo -e  ${kitty_dir}
 if [ ! -d "${kitty_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${kitty_dir}  ${COLOR_RESET}\n"
     mkdir -p ${kitty_dir}
@@ -178,22 +178,25 @@ echo -e "${GREEN_BLACK}************************* 5、安装 7-zip解压缩  等 
 echo ${PASSWD}  |  sudo -S apt install p7zip-full p7zip-rar
 
 echo -e "${GREEN_BLACK}************************* 4、安装字体 FiraCode 等 *************************${COLOR_RESET} \n"
-install_dir=/usr/share/fonts/truetype/firacode
-if [ ! -d "${install_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${install_dir}"
+
+echo  ${PASSWD}  |  sudo -S apt install fonts-firacode
+
+installdir=/usr/share/fonts/truetype/firacode1
+if [ ! -d "${installdir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${installdir}"
 else
-    echo -e  "目录已经存在 ${install_dir} \n"
+    echo -e  "目录已经存在 ${installdir} \n"
 fi
 
 for type in Bold Light Medium Regular Retina; do
-    file_path="${install_dir}/FiraCode-${type}.ttf"
+    file_path="${installdir}/FiraCode-${type}.ttf"
     file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
     if [ ! -e "${file_path}" ]; then
         echo "wget -O $file_path $file_url"
-        wget  -c  -O "${file_path}" "${file_url}"
+        echo  ${PASSWD}  |  sudo -S wget  -c  -O "${file_path}" "${file_url}"
     else
-		echo -e  "目录已经存在 ${file_path} \n"
+		echo -e  "文件已经存在 ${file_path} \n"
     fi;
 done
 
@@ -203,35 +206,34 @@ echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
 echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
 echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
 
-
-
-
 echo -e "${GREEN_BLACK}************************* 5、安装字体 Nerd Fonts  等 *************************${COLOR_RESET}\n"
 echo -e "${PURPLE_BLACK}************************* 5.1、安装字体 FiraCode Nerd Fonts   等 *************************${COLOR_RESET}\n"
-
+cd
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在~/下载/nerdfonts/下 ${COLOR_RESET} \n"
 URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 downloaddir=~/tmp/FiracodeNerd.zip
 wget  -c -O  ${downloaddir}  ${URL}
 
-install_dir=/usr/share/fonts/truetype/nerdfont
-if [ ! -d "${install_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p  ${install_dir}
+installdir=/usr/share/fonts/truetype/nerdfont1
+if [ ! -d "${installdir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
 else
-    echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
 
-# echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
+
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
+#echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
+echo  ${PASSWD}  |  sudo -S unzip -d  ${installdir}  ${downloaddir}
 
 echo -e "fc-cache -f \n"
 cd   ${installdir}
 echo  ${PASSWD}  |  sudo -S mkfontscale # 生成核心字体信息
 echo  ${PASSWD}  |  sudo -S mkfontdir # 生成字体文件夹
 echo  ${PASSWD}  |  sudo -S fc-cache -f -v # 刷新系统字体缓存
+
 
 echo -e "${PURPLE_BLACK}************************* 5.2、安装字体 JetBrainsMono Nerd Fonts   等 *************************${COLOR_RESET}\n"
 
@@ -241,18 +243,20 @@ downloaddir=~/tmp/JetBrainsMonoNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget  -c -O  ${downloaddir}  ${URL}
 
-install_dir=/usr/share/fonts/truetype/nerdfont
-if [ ! -d "${install_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${install_dir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p  ${install_dir}
+installdir=/usr/share/fonts/truetype/nerdfont1
+if [ ! -d "${installdir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
 else
-    echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
+#echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+echo  ${PASSWD}  |  sudo -S unzip -d  ${installdir}  ${downloaddir}
+
 
 echo -e "fc-cache -f \n"
 cd   ${installdir}
@@ -268,18 +272,18 @@ downloaddir=~/tmp/SauceCodeProNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget -c -O  ${downloaddir}  ${URL}
 
-install_dir=/usr/share/fonts/truetype/nerdfont
-if [ ! -d "${install_dir}" ]; then
+installdir=/usr/share/fonts/truetype/nerdfont1
+if [ ! -d "${installdir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p ${install_dir}
+    echo  ${PASSWD}  |  sudo -S mkdir -p ${installdir}
 else
-    echo -e  "${WHITE_BLUE} 目录${install_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
-echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${install_dir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${install_dir}
+echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
+echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
 
 echo -e "fc-cache -f \n"
 cd   ${installdir}
@@ -295,7 +299,7 @@ downloaddir=~/tmp/HackNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget -c  -O  ${downloaddir}  ${URL}
 
-installdir=/usr/share/fonts/truetype/nerdfont
+installdir=/usr/share/fonts/truetype/nerdfont1
 if [ ! -d "${install_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p ${installdir}
@@ -333,9 +337,11 @@ else
     echo -e  "${WHITE_BLUE} 目录${installdir}已经存在  ${COLOR_RESET}\n"
 fi
 
+unzipdir=/home/jack/tmp/jetbrains
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o~/tmp/jetbrains
 
+#7z x ${downloaddir}  -r -o${unzipdir}
+unzip -d  ${unzipdir}  ${downloaddir}
 
 echo ${PASSWD}  |  sudo -S   cp ~/tmp/jetbrains/fonts/ttf/*   	${installdir}/
 echo ${PASSWD}  |  sudo -S   cp ~/tmp/jetbrains/fonts/variable/*   	${installdir}/
