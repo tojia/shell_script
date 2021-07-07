@@ -89,25 +89,25 @@ echo ${PASSWD}  |  sudo -S apt update
 echo ${PASSWD}  |  sudo -S apt upgrade -y
 
 echo  -e  "${GREEN_BLACK}************************* 2、安装FVWM *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S apt install fvwm
+echo ${PASSWD}  |  sudo -S apt install  -y fvwm
 
 
 
 echo -e "${GREEN_BLACK}************************* 3、安装字体 文泉驿微米黑 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install fonts-wqy-microhei -y
-echo  ${PASSWD}  |  sudo -S apt install fonts-wqy-zenhei -y
+echo  ${PASSWD}  |  sudo -S apt install -y fonts-wqy-microhei
+echo  ${PASSWD}  |  sudo -S apt install -y fonts-wqy-zenhei
 
 
 echo -e "${GREEN_BLACK}************************* 4、安装字体 微软字体、宋体等 *************************${COLOR_RESET} \n"
-echo  ${PASSWD}  |  sudo -S apt install ttf-mscorefonts-installer -y
+echo  ${PASSWD}  |  sudo -S apt install -y ttf-mscorefonts-installer
 echo  ${PASSWD}  |  sudo -S fc-cache -f -v
 
 echo -e "${GREEN_BLACK}************************* 5、安装 7-zip解压缩  等 *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S apt install p7zip-full p7zip-rar
+echo ${PASSWD}  |  sudo -S apt install -y p7zip-full p7zip-rar
 
 echo -e "${GREEN_BLACK}************************* 6、安装字体 FiraCode 等 *************************${COLOR_RESET} \n"
 
-echo  ${PASSWD}  |  sudo -S apt install fonts-firacode
+echo  ${PASSWD}  |  sudo -S apt install -y fonts-firacode
 
 installdir=/usr/share/fonts/truetype/firacode1
 if [ ! -d "${installdir}" ]; then
@@ -211,7 +211,8 @@ fi
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+#echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+echo  ${PASSWD}  |  sudo -S unzip -d  ${installdir}  ${downloaddir}
 
 echo -e "fc-cache -f \n"
 cd   ${installdir}
@@ -238,7 +239,8 @@ fi
 
 # echo  ${PASSWD}  |  sudo -S unzip -d  ${install_dir}  ${downloaddir}
 echo -e "${WHITE_BLUE}解压缩 ${downloaddir} 到 ${installdir} ${COLOR_RESET}"
-echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+#echo  ${PASSWD}  |  sudo -S 7z x ${downloaddir}  -r -o${installdir}
+echo  ${PASSWD}  |  sudo -S unzip -d  ${installdir}  ${downloaddir}
 
 echo -e "fc-cache -f \n"
 cd   ${installdir}
@@ -310,41 +312,40 @@ cd nerd-fonts
 
 echo -e "7${GREEN_BLACK}************************* 12、安装 screenkey *************************${COLOR_RESET} \n"
 
-echo  ${PASSWD}  |  sudo -S screenkey -y
+echo  ${PASSWD}  |  sudo -S apt install -y screenkey
 
 
 echo -e "${GREEN_BLACK}************************* 13、安装 okular *************************${COLOR_RESET} \n"
 
-echo  ${PASSWD}  |  sudo -S okular -y
+echo  ${PASSWD}  |  sudo -S apt install -y okular
 
 echo -e "${GREEN_BLACK}************************* 14、在 Ubuntu 20.04 上安装 Microsoft Edge 浏览器 *************************${COLOR_RESET} \n"
 
 echo  ${PASSWD}  |  sudo -S apt updade
 echo  ${PASSWD}  |  sudo -S apt upgrade
-echo  ${PASSWD}  |  sudo -S apt install software-properties-common apt-transport-https wget
+echo  ${PASSWD}  |  sudo -S apt install -y software-properties-common apt-transport-https wget
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
 echo  ${PASSWD}  |  sudo -S add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
-echo  ${PASSWD}  |  sudo -S  install microsoft-edge-dev
-
+echo  ${PASSWD}  |  sudo -S  install -y microsoft-edge-dev
 
 
 
 echo -e "${GREEN_BLACK}************************* 15、安装终端浏览器  w3m  lynx  Link2 elinks *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S  install w3m  lynx  links2 elinks
+echo  ${PASSWD}  |  sudo -S apt install -y w3m  lynx  links2 elinks
 
 echo -e "${GREEN_BLACK}************************* 16、安装射手影音 *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S  install smplayer  vlc
+echo  ${PASSWD}  |  sudo -S apt install -y smplayer  vlc
 
 
 echo -e "${GREEN_BLACK}************************* 17、安装深度截图、火焰截图 *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S  install deepin-screenshot  flameshot
+echo  ${PASSWD}  |  sudo -S apt install -y  deepin-screenshot  flameshot
 
 echo -e "${GREEN_BLACK}************************* 18、安装Latex *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S  install texlive-full texlive-xetex texlive-lang-chinese texstudio
+echo  ${PASSWD}  |  sudo -S apt install -y texlive-full texlive-xetex texlive-lang-chinese texstudio
 
 echo -e "${GREEN_BLACK}************************* 19、安装exa *************************${COLOR_RESET} \n"
 cd tmp
@@ -355,16 +356,16 @@ echo  ${PASSWD}  |  sudo -S  mv exa-linux-x86_64 /usr/local/bin/exa
 cd
 echo -e "${GREEN_BLACK}************************* 20、安装ranger *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S  install ranger caca-utils  highlight atool w3m mediainfo catdoc docx2txt xlsx2csv  -y
+echo  ${PASSWD}  |  sudo -S apt install -y  ranger caca-utils  highlight atool w3m mediainfo catdoc docx2txt xlsx2csv
 
 echo -e "${GREEN_BLACK}************************* 21、安装 Glances、sysstat、dstat、duf *************************${COLOR_RESET}\n"
 
 echo  ${PASSWD}  |  sudo -S  apt-add-repository ppa:arnaud-hartmann/glances-stable
-echo  ${PASSWD}  |  sudo -S  apt-get update -y
-echo  ${PASSWD}  |  sudo -S  apt-get install glances -y
+echo  ${PASSWD}  |  sudo -S  apt  update -y
+echo  ${PASSWD}  |  sudo -S  apt  install  -y glances
 
 
-echo  ${PASSWD}  |  sudo -S  apt-get install sysstat dstat  -y
+echo  ${PASSWD}  |  sudo -S  apt  install   -ysysstat dstat
 
 cd ~/tmp
 wget https://github.com/muesli/duf/releases/download/v0.5.0/checksums.txt
@@ -377,7 +378,7 @@ echo -e "${GREEN_BLACK}************************* 22、安装 plots、***********
 
 echo  ${PASSWD}  |  sudo -S add-apt-repository ppa:apandada1/plots
 echo  ${PASSWD}  |  sudo -S apt update
-echo  ${PASSWD}  |  sudo -S apt install plots -y
+echo  ${PASSWD}  |  sudo -S apt install -y plots
 
 echo -e "${GREEN_BLACK}************************* 23、安装 QQ、*************************${COLOR_RESET} \n"
 cd ~/tmp
@@ -392,7 +393,7 @@ echo  ${PASSWD}  |  sudo -S dpkg -i  baidunetdisk_3.5.0_amd64.deb
 cd
 
 echo -e "${GREEN_BLACK}************************* 25、安装 suckless套装*************************${COLOR_RESET}  \n"
-echo  ${PASSWD}  |  sudo -S apt install  libx11-dev  apt-file -y
+echo  ${PASSWD}  |  sudo -S apt install -y  libx11-dev  apt-file
 echo  ${PASSWD}  |  sudo -S   apt-file update
 
 echo  ${PASSWD}  |  sudo -S  apt install -y --force-yes x11-xserver-utils libxrandr-dev libimlib2-dev libharfbuzz-dev
@@ -433,43 +434,43 @@ cd
 echo -e "${PURPLE_BLACK}************************* 25.5 安装polybar *************************${COLOR_RESET}\n"
 echo  ${PASSWD}  |  sudo -S echo "deb http://cz.archive.ubuntu.com/ubuntu groovy main universe"  >> /etc/apt/sources.list
 echo  ${PASSWD}  |  sudo -S apt updade
-echo  ${PASSWD}  |  sudo -S apt install polybar
+echo  ${PASSWD}  |  sudo -S apt install -y polybar
 
 
 echo -e "${PURPLE_BLACK}************************* 25.6 安装 其他服务软件 *************************${COLOR_RESET}\n"
 
-echo  ${PASSWD}  |  sudo -S apt install suckless-tools libx11-dev libxft-dev libxinerama-dev gcc make
+echo  ${PASSWD}  |  sudo -S apt install -y suckless-tools libx11-dev libxft-dev libxinerama-dev gcc make
 
 echo -e "${PURPLE_BLACK}************************* 25.7 背光灯调整工具 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install light
+echo  ${PASSWD}  |  sudo -S apt install -y light
 
 echo -e "${PURPLE_BLACK}************************* 25.8 安装数字键盘工具, 用于进入dwm桌面后自动开启数字键盘 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install numlockx
+echo  ${PASSWD}  |  sudo -S apt install -y numlockx
 
 echo -e "${PURPLE_BLACK}************************* 25.9 virtualbox工具 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install virtualbox-guest-utils virtualbox-guest-X11
+echo  ${PASSWD}  |  sudo -S apt install -y virtualbox-guest-utils virtualbox-guest-X11
 
 echo -e "${PURPLE_BLACK}*************************  25.10 电源监控工具 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  acpi acpitool
+echo  ${PASSWD}  |  sudo -S apt install -y acpi acpitool
 
 echo -e "${PURPLE_BLACK}************************* 25.11 透明配置支持 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  compton
-echo  ${PASSWD}  |  sudo -S apt install  xcompmg
+echo  ${PASSWD}  |  sudo -S apt install -y compton
+echo  ${PASSWD}  |  sudo -S apt install -y xcompmg
 
 echo -e "${PURPLE_BLACK}************************* 25.12 背景图片设置工具 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  feh
+echo  ${PASSWD}  |  sudo -S apt install -y feh
 
 echo -e "${PURPLE_BLACK}************************* 25.13 用于屏幕亮度的调节 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  xbacklight
+echo  ${PASSWD}  |  sudo -S apt install -y xbacklight
 
 echo -e "${PURPLE_BLACK}************************** 25.14 安装 nm-applet *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  network-manager-gnome
+echo  ${PASSWD}  |  sudo -S apt install  -y network-manager-gnome
 
 echo -e "${PURPLE_BLACK}************************** 25.15  锁屏 *************************${COLOR_RESET}\n"
 echo  ${PASSWD}  |  sudo -S apt install  slimlock
 
 echo -e "${PURPLE_BLACK}************************** 25.16 rofi 是一个快捷的程序启动器 *************************${COLOR_RESET}\n"
-echo  ${PASSWD}  |  sudo -S apt install  rofi
+echo  ${PASSWD}  |  sudo -S apt install  -y rofi
 
 
 echo -e "${PURPLE_BLACK}************************* 25.17 安装dwmstatus *************************${COLOR_RESET}\n"
@@ -531,7 +532,7 @@ git clone https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
 
 echo -e "${GREEN_BLACK}************************* 28 安装 neovim、vim-plug插件 *************************${COLOR_RESET}\n"
 ${PASSWD}  |  sudo -S apt update
-${PASSWD}  |  sudo -S apt install nodejs npm
+${PASSWD}  |  sudo -S apt install -y nodejs npm
 ${PASSWD}  |  sudo -S add-apt-repository ppa:neovim-ppa/unstable
 ${PASSWD}  |  sudo -S apt update
 ${PASSWD}  |  sudo -S apt install -y neovim
@@ -547,7 +548,7 @@ echo "${GREEN_BLACK}************************* 28.2 安装yarn ******************
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 echo  ${PASSWD}  |  sudo -S apt update
-echo  ${PASSWD}  |  sudo -S apt install yarn npm
+echo  ${PASSWD}  |  sudo -S apt install -y yarn npm
 
 echo "${GREEN_BLACK}************************* 28.3 安装ccls *************************${COLOR_RESET}"
 cd
@@ -594,7 +595,7 @@ echo ${PASSWD}  |  sudo -S   cp   -f ${downloaddir}/vim/*   	/usr/share/vim/vim8
 
 echo -e "${PURPLE_BLACK}************************* 27.5 复制kitty配置文件 *************************${COLOR_RESET}\n"
 downloaddir=~/tmp/configure_file
-kitty_dir=~/.config/kitty1
+kitty_dir=~/.config/kitty
 echo -e ${downloaddir}
 echo -e  ${kitty_dir}
 if [ ! -d "${kitty_dir}" ]; then
@@ -626,7 +627,7 @@ URL=https://github.com/junjiecjj/nvim.git
 nvim_downloaddir=~/tmp/nvim
 git clone    ${URL}  ${nvim_downloaddir}
 
-nvim_dir=~/.config/nvim1
+nvim_dir=~/.config/nvim
 if [ ! -d "${nvim_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${nvim_dir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p "${nvim_dir}"
