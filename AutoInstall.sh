@@ -593,7 +593,9 @@ echo ${PASSWD}  |  sudo -S   cp   -f ${downloaddir}/vim/*   	/usr/share/vim/vim8
 echo ${PASSWD}  |  sudo -S   cp   -f ${downloaddir}/vim/*   	/usr/share/vim/vim81/colors/
 
 
-echo -e "${PURPLE_BLACK}************************* 27.5 复制kitty配置文件 *************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}************************* 27.5 安装kitty并复制kitty配置文件 *************************${COLOR_RESET}\n"
+echo  ${PASSWD}  |  sudo -S apt install  -y kitty
+
 downloaddir=~/tmp/configure_file
 kitty_dir=~/.config/kitty
 echo -e ${downloaddir}
@@ -608,7 +610,11 @@ fi
 cp ${downloaddir}/kitty/*   	${kitty_dir}
 
 
-echo -e "${PURPLE_BLACK}************************* 27.6  复制alacritty配置文件 *************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}************************* 27.6  安装alacritty并复制alacritty配置文件 *************************${COLOR_RESET}\n"
+echo  ${PASSWD}  |  sudo -S add-apt-repository ppa:aslatter/ppa
+echo  ${PASSWD}  |  sudo -S add-apt-repository ppa:mmstick76/alacritty
+echo  ${PASSWD}  |  sudo -S apt install -y alacritty
+
 downloaddir=~/tmp/configure_file
 alacritty_dir=~/.config/alacritty
 if [ ! -d "${alacritty_dir}" ]; then
