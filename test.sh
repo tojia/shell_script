@@ -89,45 +89,32 @@ WHITE_WHITE='\e[47;37;1m'
 COLOR_RESET='\e[0m'
 
 PASSWD=chen
-echo -e "${GREEN_BLACK}************************* 下载github上的一些配置文件,并分发到各自的目录 *************************${COLOR_RESET}\n"
+
+
+downloaddir=~/tmp/configure_file
+echo -e "${PURPLE_BLACK}************************* 27.7 复制neovim配置文件 *************************${COLOR_RESET}\n"
+
 cd
+URL=https://github.com/junjiecjj/nvim.git
+nvim_downloaddir=~/tmp/nvim
+git clone    ${URL}  ${nvim_downloaddir}
 
-URL=https://github.com/junjiecjj/configure_file.git
-downloaddir=~/tmp/confile-file
-git clone    ${URL}  ${downloaddir}
-
-
-echo -e "${PURPLE_BLACK}************************* 复制.vimrc *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S   cp  ${downloaddir}/vimrc-file/vimrc_use  ~/.vimrc
-
-echo -e "${PURPLE_BLACK}************************* 复制.zshrc *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/zsh/zshrc  ~/.zshrc
-
-echo -e "${PURPLE_BLACK}************************* 复制.Xdefault *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/molokai_xterm           ~/.Xdefault_molokai
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seabird_xterm  			~/.Xdefault_seabird
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/seoul256_xterm  		~/.Xdefault_seoul256
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/solarized_light_xterm  	~/.Xdefault_solarized_light
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/xterm/solarized_dark_xterm  	~/.Xdefault_solarized_dark
-
-
-echo -e "${PURPLE_BLACK}************************* 复制vim颜色配置文件 *************************${COLOR_RESET}\n"
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/vim/*   	/usr/share/vim/vim82/colors/
-echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/vim/*   	/usr/share/vim/vim81/colors/
-
-
-echo -e "${PURPLE_BLACK}************************* 复制kitty配置文件 *************************${COLOR_RESET}\n"
-downloaddir=~/tmp/confile-file
-kitty_dir=~/.config/kitty1
-echo -e ${downloaddir}
-echo -e  ${kitty_dir}
-if [ ! -d "${kitty_dir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${kitty_dir}  ${COLOR_RESET}\n"
-    mkdir -p ${kitty_dir}
+nvim_dir=~/.config/nvim1
+if [ ! -d "${nvim_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${nvim_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${nvim_dir}"
 else
-    echo -e  "${WHITE_BLUE} 目录${kitty_dir}已经存在  ${COLOR_RESET}\n"
+    echo -e  "${WHITE_BLUE} 目录${nvim_dir}已经存在  ${COLOR_RESET}\n"
 fi
 
-cp ${downloaddir}/kitty/*   	${kitty_dir}
+nvimColor_dir=~/.config/nvim1/colors
+if [ ! -d "${nvimColor_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${nvimColor_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${nvimColor_dir}"
+else
+    echo -e  "${WHITE_BLUE} 目录${nvimColor_dir}已经存在  ${COLOR_RESET}\n"
+fi
 
+echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/init.vim  	    		      ${nvim_dir}
+echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/coc-setting.json              ${nvim_dir}
+echo ${PASSWD}  |  sudo -S   cp   -f    ${downloaddir}/vim/*   	                         ${nvimColor_dir}
