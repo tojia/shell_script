@@ -653,12 +653,21 @@ echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/init.vim  	    		   
 echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/coc-setting.json              ${nvim_dir}
 echo ${PASSWD}  |  sudo -S   cp   -f    ${downloaddir}/vim/*   	                         ${nvimColor_dir}
 
+echo -e "${PURPLE_BLACK}************************* 28 复制i3wm配置文件 *************************${COLOR_RESET}\n"
 
 
+cd
+URL=https://github.com/junjiecjj/i3wm.git
+i3_downloaddir=~/.config/i3
 
 
-
-
+if [ ! -d "${i3_downloaddir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${i3_downloaddir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${i3_downloaddir}"
+else
+    echo -e  "${WHITE_BLUE} 目录${i3_downloaddir}已经存在  ${COLOR_RESET}\n"
+fi
+echo ${PASSWD}  |  sudo -S   git clone    ${URL}  ${i3_downloaddir}
 
 
 
