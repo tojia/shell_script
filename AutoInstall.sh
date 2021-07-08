@@ -598,8 +598,7 @@ echo  ${PASSWD}  |  sudo -S apt install  -y kitty
 
 downloaddir=~/tmp/configure_file
 kitty_dir=~/.config/kitty
-echo -e ${downloaddir}
-echo -e  ${kitty_dir}
+
 if [ ! -d "${kitty_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${kitty_dir}  ${COLOR_RESET}\n"
     mkdir -p ${kitty_dir}
@@ -626,7 +625,64 @@ fi
 
 echo ${PASSWD}  |  sudo -S   cp ${downloaddir}/alacritty/*   	${alacritty_dir}
 
-echo -e "${PURPLE_BLACK}************************* 27.7 复制neovim配置文件 *************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}************************* 27.7 复制polybar配置文件 *************************${COLOR_RESET}\n"
+echo  ${PASSWD}  |  sudo -S  chmod 777 /etc/apt/sources.list
+echo "deb http://cz.archive.ubuntu.com/ubuntu groovy main universe" >>  /etc/apt/sources.list
+echo  ${PASSWD}  |  sudo -S  chmod 644 /etc/apt/sources.list
+
+echo  ${PASSWD}  |  sudo -S  apt update
+echo  ${PASSWD}  |  sudo -S  apt install polybar
+
+downloaddir=~/tmp/configure_file
+polybar_dir=~/.config/polybar1
+
+if [ ! -d "${polybar_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${polybar_dir}  ${COLOR_RESET}\n"
+    mkdir -p ${polybar_dir}
+else
+    echo -e  "${WHITE_BLUE} 目录${polybar_dir}已经存在  ${COLOR_RESET}\n"
+fi
+
+cp ${downloaddir}/polybar/*   	${polybar_dir}
+
+echo -e "${PURPLE_BLACK}************************* 27.8 复制FVWM配置文件 *************************${COLOR_RESET}\n"
+
+downloaddir=~/tmp/configure_file
+fvwm_dir=~/.fvwm
+
+if [ ! -d "${fvwm_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${fvwm_dir}  ${COLOR_RESET}\n"
+    mkdir -p ${fvwm_dir}
+else
+    echo -e  "${WHITE_BLUE} 目录${fvwm_dir}已经存在  ${COLOR_RESET}\n"
+fi
+
+cp -r -f ${downloaddir}/fvwm/*   	${fvwm_dir}
+
+
+
+
+echo -e "${PURPLE_BLACK}************************* 28 复制i3wm配置文件 *************************${COLOR_RESET}\n"
+
+
+cd
+URL=https://github.com/junjiecjj/i3wm.git
+i3_dir=~/.config/i3
+
+
+if [ ! -d "${i3_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${i3_dir}  ${COLOR_RESET}\n"
+    echo  ${PASSWD}  |  sudo -S mkdir -p "${i3_dir}"
+else
+    echo -e  "${WHITE_BLUE} 目录${i3_dir}已经存在  ${COLOR_RESET}\n"
+fi
+echo ${PASSWD}  |  sudo -S   git clone    ${URL}  ${i3_dir}
+
+
+
+
+
+echo -e "${PURPLE_BLACK}************************* 29  复制neovim配置文件 *************************${COLOR_RESET}\n"
 
 cd
 URL=https://github.com/junjiecjj/nvim.git
@@ -652,32 +708,6 @@ fi
 echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/init.vim  	    		      ${nvim_dir}
 echo ${PASSWD}  |  sudo -S   cp         ${nvim_downloaddir}/coc-setting.json              ${nvim_dir}
 echo ${PASSWD}  |  sudo -S   cp   -f    ${downloaddir}/vim/*   	                         ${nvimColor_dir}
-
-echo -e "${PURPLE_BLACK}************************* 28 复制i3wm配置文件 *************************${COLOR_RESET}\n"
-
-
-cd
-URL=https://github.com/junjiecjj/i3wm.git
-i3_downloaddir=~/.config/i3
-
-
-if [ ! -d "${i3_downloaddir}" ]; then
-    echo -e "${WHITE_BLUE} 创建目录${i3_downloaddir}  ${COLOR_RESET}\n"
-    echo  ${PASSWD}  |  sudo -S mkdir -p "${i3_downloaddir}"
-else
-    echo -e  "${WHITE_BLUE} 目录${i3_downloaddir}已经存在  ${COLOR_RESET}\n"
-fi
-echo ${PASSWD}  |  sudo -S   git clone    ${URL}  ${i3_downloaddir}
-
-
-
-
-
-
-
-
-
-
 
 
 
