@@ -396,14 +396,14 @@ echo -e "${GREEN_BLACK}************************* 25、安装 suckless套装*****
 echo  ${PASSWD}  |  sudo -S apt install -y  libx11-dev  apt-file
 echo  ${PASSWD}  |  sudo -S   apt-file update
 
-echo  ${PASSWD}  |  sudo -S  apt install -y --force-yes x11-xserver-utils libxrandr-dev libimlib2-dev libharfbuzz-dev
+echo  ${PASSWD}  |  sudo -S  apt install -y --force-yes x11-xserver-utils libxrandr-dev libimlib2-dev  libharfbuzz-dev libxinerama-dev
 
 echo -e "${PURPLE_BLACK}************************* 25.1 安装st *************************${COLOR_RESET}\n"
 
 git clone  https://github.com/junjiecjj/st-1.git
 cd st-1
 echo  ${PASSWD}  |  sudo -S  make clean install
-cd
+cdgit clone https://github.com/junjiecjj/dmenu.git
 
 echo -e "${PURPLE_BLACK}************************* 25.2 安装slock *************************${COLOR_RESET}\n"
 git clone   https://github.com/junjiecjj/slock.git
@@ -504,13 +504,15 @@ cd
 
 echo  "${WHITE_BLUE}************************* 26.3 安装zsh-autosuggestions *************************${COLOR_RESET}"
 git clone git://github.com/zsh-users/zsh-autosuggestions  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
+git clone git://github.com/zsh-users/zsh-autosuggestions   ~/.oh-my-zsh/plugins/zsh-autosuggestions
 
 echo   "${WHITE_BLUE}************************* 26.4 安装zsh-syntax-highlighting *************************${COLOR_RESET}"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
 echo   "${WHITE_BLUE}************************* 26.5 安装 autojump *************************${COLOR_RESET}"
+cd
 git clone https://github.com/wting/autojump   ~/.oh-my-zsh/plugins/autojump
 cd ~/.oh-my-zsh/plugins/autojump
 ./install.py
@@ -697,7 +699,7 @@ else
     echo -e  "${WHITE_BLUE} 目录${nvim_dir}已经存在  ${COLOR_RESET}\n"
 fi
 
-nvimColor_dir=~/.config/nvim1/colors
+nvimColor_dir=~/.config/nvim/colors
 if [ ! -d "${nvimColor_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${nvimColor_dir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p "${nvimColor_dir}"
