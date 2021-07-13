@@ -107,9 +107,9 @@ echo ${PASSWD}  |  sudo -S apt install -y p7zip-full p7zip-rar
 
 echo -e "${GREEN_BLACK}************************* 6、安装字体 FiraCode 等 *************************${COLOR_RESET} \n"
 
-echo  ${PASSWD}  |  sudo -S apt install -y fonts-firacode
+echo  ${PASSWD}  |  sudo -S apt install -y fonts-firacode fonts-hack
 
-installdir=/usr/share/fonts/truetype/firacode1
+installdir=/usr/share/fonts/truetype/firacodes
 if [ ! -d "${installdir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p "${installdir}"
@@ -142,7 +142,7 @@ URL=https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zi
 downloaddir=~/tmp/FiracodeNerd.zip
 wget  -c -O  ${downloaddir}  ${URL}
 
-installdir=/usr/share/fonts/truetype/nerdfont1
+installdir=/usr/share/fonts/truetype/nerdfonts
 if [ ! -d "${installdir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
@@ -171,7 +171,7 @@ downloaddir=~/tmp/JetBrainsMonoNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget  -c -O  ${downloaddir}  ${URL}
 
-installdir=/usr/share/fonts/truetype/nerdfont1
+installdir=/usr/share/fonts/truetype/nerdfonts
 if [ ! -d "${installdir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
@@ -200,7 +200,7 @@ downloaddir=~/tmp/SauceCodeProNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget -c -O  ${downloaddir}  ${URL}
 
-installdir=/usr/share/fonts/truetype/nerdfont1
+installdir=/usr/share/fonts/truetype/nerdfonts
 if [ ! -d "${installdir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p ${installdir}
@@ -228,7 +228,7 @@ downloaddir=~/tmp/HackNerd.zip
 echo -e  "${WHITE_BLUE}去https://www.nerdfonts.com/font-downloads下载字体，存放在${downloaddir}下 ${COLOR_RESET} \n"
 wget -c  -O  ${downloaddir}  ${URL}
 
-installdir=/usr/share/fonts/truetype/nerdfont1
+installdir=/usr/share/fonts/truetype/nerdfonts
 if [ ! -d "${install_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p ${installdir}
@@ -259,7 +259,7 @@ downloaddir=~/tmp/JetBrains.zip
 wget  -c -O  ${downloaddir}  ${URL}
 
 
-installdir=/usr/share/fonts/truetype/jetbrains1
+installdir=/usr/share/fonts/truetype/jetbrains
 if [ ! -d "${installdir}" ]; then
 	echo -e "${WHITE_BLUE} 创建目录${installdir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p  ${installdir}
@@ -293,6 +293,8 @@ git clone https://github.com/powerline/fonts.git
 # 进入文件夹并安装
 cd fonts
 ./install.sh
+
+echo ${PASSWD} | sudo -S apt install fonts-powerline
 
 echo -e "${GREEN_BLACK}************************* 10、安装 Awesome-Terminal Fonts 字体 *************************${COLOR_RESET}\n"
 
@@ -396,14 +398,14 @@ echo -e "${GREEN_BLACK}************************* 25、安装 suckless套装*****
 echo  ${PASSWD}  |  sudo -S apt install -y  libx11-dev  apt-file
 echo  ${PASSWD}  |  sudo -S   apt-file update
 
-echo  ${PASSWD}  |  sudo -S  apt install -y --force-yes x11-xserver-utils libxrandr-dev libimlib2-dev  libharfbuzz-dev libxinerama-dev
+echo  ${PASSWD}  |  sudo -S  apt install -y --force-yes x11-xserver-utils libxrandr-dev libimlib2-dev libharfbuzz-dev
 
 echo -e "${PURPLE_BLACK}************************* 25.1 安装st *************************${COLOR_RESET}\n"
 
 git clone  https://github.com/junjiecjj/st-1.git
 cd st-1
 echo  ${PASSWD}  |  sudo -S  make clean install
-cdgit clone https://github.com/junjiecjj/dmenu.git
+cd
 
 echo -e "${PURPLE_BLACK}************************* 25.2 安装slock *************************${COLOR_RESET}\n"
 git clone   https://github.com/junjiecjj/slock.git
@@ -504,15 +506,13 @@ cd
 
 echo  "${WHITE_BLUE}************************* 26.3 安装zsh-autosuggestions *************************${COLOR_RESET}"
 git clone git://github.com/zsh-users/zsh-autosuggestions  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone git://github.com/zsh-users/zsh-autosuggestions   ~/.oh-my-zsh/plugins/zsh-autosuggestions
+
 
 echo   "${WHITE_BLUE}************************* 26.4 安装zsh-syntax-highlighting *************************${COLOR_RESET}"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git   ~/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
 echo   "${WHITE_BLUE}************************* 26.5 安装 autojump *************************${COLOR_RESET}"
-cd
 git clone https://github.com/wting/autojump   ~/.oh-my-zsh/plugins/autojump
 cd ~/.oh-my-zsh/plugins/autojump
 ./install.py
@@ -636,7 +636,7 @@ echo  ${PASSWD}  |  sudo -S  apt update
 echo  ${PASSWD}  |  sudo -S  apt install polybar
 
 downloaddir=~/tmp/configure_file
-polybar_dir=~/.config/polybar1
+polybar_dir=~/.config/polybar
 
 if [ ! -d "${polybar_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${polybar_dir}  ${COLOR_RESET}\n"
@@ -662,7 +662,19 @@ fi
 cp -r -f ${downloaddir}/fvwm/*   	${fvwm_dir}
 
 
+echo -e "${PURPLE_BLACK}************************* 27.9 复制conky配置文件 *************************${COLOR_RESET}\n"
 
+downloaddir=~/tmp/configure_file
+conky_dir=~/.config/autostart
+
+if [ ! -d "${conky_dir}" ]; then
+    echo -e "${WHITE_BLUE} 创建目录${conky_dir}  ${COLOR_RESET}\n"
+    mkdir -p ${conky_dir}
+else
+    echo -e  "${WHITE_BLUE} 目录${conky_dir}已经存在  ${COLOR_RESET}\n"
+fi
+
+cp  -f ${downloaddir}/conky/conky.desktop   	${conky_dir}
 
 echo -e "${PURPLE_BLACK}************************* 28 复制i3wm配置文件 *************************${COLOR_RESET}\n"
 
@@ -699,7 +711,7 @@ else
     echo -e  "${WHITE_BLUE} 目录${nvim_dir}已经存在  ${COLOR_RESET}\n"
 fi
 
-nvimColor_dir=~/.config/nvim/colors
+nvimColor_dir=~/.config/nvim1/colors
 if [ ! -d "${nvimColor_dir}" ]; then
     echo -e "${WHITE_BLUE} 创建目录${nvimColor_dir}  ${COLOR_RESET}\n"
     echo  ${PASSWD}  |  sudo -S mkdir -p "${nvimColor_dir}"
