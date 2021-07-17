@@ -4,7 +4,7 @@
 # Author:陈俊杰
 # mail: 2716705056@qq.com
 # Created Time: 2021年06月28日 星期一 17时43分42秒
- 
+
 # 此程序的功能是：
 #########################################################################
 #  命令格式
@@ -66,7 +66,7 @@ grep -E 'svm|vmx' /proc/cpuinfo
 
 
 #  在搜索字符串前面或者后面显示行号
-grep  -n -A 2 -B 2 "wang" test.txt 
+grep  -n -A 2 -B 2 "wang" test.txt
 
 # 计算匹配项的数目
 grep -c   "abc" test.txt
@@ -76,7 +76,7 @@ grep  -n -C 2 "wang" test.txt
 
 
 # 按给定字符串搜索文件中匹配的行号
-grep  -n "chen" test.txt 
+grep  -n "chen" test.txt
 
 
 # 进行精确匹配搜索, -w
@@ -141,7 +141,7 @@ grep -v '^$' /etc/samba/smb.conf
 
 #  [ ]匹配其中的某一个字符
 grep -n 't[ae]st' test.txt
-#[] 内可以用范围表示，比如 [a-z] 表示小写字母，[0-9] 表示 0~9 的数字，[A-Z] 则是大写字母。[a-zA-Z0-9] 表示所有数字与英文字符。 
+#[] 内可以用范围表示，比如 [a-z] 表示小写字母，[0-9] 表示 0~9 的数字，[A-Z] 则是大写字母。[a-zA-Z0-9] 表示所有数字与英文字符。
 
 grep -n '[0-9]' test.tx
 #搜索包含数字的行
@@ -168,7 +168,7 @@ grep -n '\.$' test.txt  #需用\转义，搜索末尾是.的行
 #  'gr.p'  匹配gr后接一个任意字符，然后是p。
 grep -n "y.n" test.txt
 
-#  * 匹配零个或多个先前的字符 
+#  * 匹配零个或多个先前的字符
 grep -n " *grep" test.txt  #  ' *grep' 匹配一个或多个空格后紧跟grep的行
 grep -n ' oo*' test.txt    #  ' oo*', 表示第一个o一定存在，第二个个数不确定，因此至少一个o
 grep -n 'goo*g' test.txt      #  搜索g开头和结尾，中间是至少一个o的字符串
@@ -350,54 +350,176 @@ grep '[a-z]\{7\}' *.txt                 #显示以.txt 结尾的文件中的所�
 #  \>, \b：行尾
 
 
+###############################  鸟哥的linux私房菜 ###############################
+
+
+# 搜索特定字符串
+grep -n 'the' regular_express.txt
+
+
+# 搜索特定字符串-反向选择
+grep -nv 'the' regular_express.txt
+
+
+# 利用中括号[]来搜索集合字符
+grep -n 't[ae]st' regular_express.txt
+
+# 搜索所有含有oo的行
+grep -n 'oo' regular_express.txt
+
+
+# 不想oo前面有g
+grep -n '[^g]oo' regular_express.txt
+
+
+# 不想oo前面有小写字母
+grep -n '[^a-z]oo' regular_express.txt
+grep -n '[^[:lower:]]oo' regular_express.txt
+
+
+
+# 取有数字的行
+grep -n '[0-9]' regular_express.txt
+grep -n '[[:digit:]]' regular_express.txt
+
+
+# 想the只出现在行首
+grep -n '^the' regular_express.txt
+
+
+# 列出开头是小写字符的行
+grep -n '^[a-z]' regular_express.txt
+grep -n '^[[:lower:]]' regular_express.txt
+
+# 不想英文字母开头
+grep -n '^[^a-zA-Z]' regular_express.txt
+
+# ^在[]内是指“反向选择”，在[]外是指定位在行首的意思
+
+
+
+# 找出行位结束符为小数点的那些行
+grep -n '\.$' regular_express.txt
 
 
 
 
+# 找出空白行
+grep -n '^$' regular_express.txt
+
+# 去除空白行和以#开头的行
+grep -V '^$' /etc/rsyslog.conf | grep -v '^#'
 
 
+# # bash 中的字符和正则表达式中的字符有区别，下面总结一下bash中的通配符和特殊字符
+# * 代表0到无穷多个任意字符
+# ？ 代表至少有一个字符
+# [] 代表一定有一个在括号内的字符，如[abcd]代表一定有一个在括号内的字符，可能是a,b,c,sed
+# [-] 若有减号在中括号内，代表在编码顺序内的所有字符，例如[0-9]代表0-9直接的所有数字，因为数字的语系编码是连续的
+# [^] 若中括号内的第一个字符指数符号(^)，那表示反向选择，例如[^abc]代表一定有一个字符，只要不是a,b,c就行
+# \ 转移字符：将特殊字符或者通配符还原成一般字符
+# | 管道，分割两个管道命令的界定
+# ; 连续指令下达分隔符
+# '' 单引号，不具有变量置换能力，($变为纯文本)
+# ""  具有变量置换功能，($)可保留相关功能
+# `` 两个`中间为可以先执行的指令，等价于$()
+# () 在中间为子shell的起始与结束
+# {} 在中间为命令区块的组合
 
 
+# 在bash中，通配符*可以用来代表任意(0个或多个)字符，但是在正则表达式并不是通配符，
+# 正则表达式中.则代表绝对有一个任意字符的意思，这两个符号在正则表达式的意义如下：
+.(小数点)：代表一定有一个任意字符的意思
+*(星号)：代表重复前一个字符0到无穷多次的意思。
+
+# 找出g??d的字符串，
+grep -n 'g..d' regular_express.txt
+
+# 找出至少有两个o以上的字符串,
+grep -n 'ooo*' regular_express.txt
+
+# 找出g开头和g结尾的字符串
+grep -n 'g*g' regular_express.txt
+
+# 得到g...g的字符串
+grep -n 'g.*g' regular_express.txt
+
+# 找出任意数字的行列
+grep -n '[0-9][0-9]*' regular_express.txt
+
+# 找出两个o的字符串
+grep -n 'o\{2\}' regular_express.txt
 
 
+# 找出g后面接2个至5个o
+grep -n 'go\{2,5\}' regular_express.txt
 
 
+# 搜索行首为#找出行位结束符为小数点的那些行
+grep -n '^#' regular_express.txt
+
+# 将行位为!的那一行打印出来
+grep -n '!$' regular_express.txt
+
+# 搜索eve, eee, e e, eae，但不能是ee，即e与e自己一定有一个字符,空格也是
+grep -n 'e.e' regular_express.txt
+
+# 搜索特殊字符'，需要转义
+grep -n  \' regular_express.txt
 
 
+# 列出行首为^的那一行
+grep -n  '^\^' regular_express.txt
+grep -n  "^\^" regular_express.txt
 
 
+# 列出行尾为^的那一行
+grep -n  "\^$" regular_express.txt
+grep -n  '\^$' regular_express.txt
+
+# 找出以^开始的那些行
+grep -n '^\^' regular_express.txt
+grep -n "^\^" regular_express.txt
 
 
+# 找出以^结束的那些行
+grep -n '\^$' regular_express.txt
+grep -n "\^$" regular_express.txt
+
+# 找出含有\开始的那些行
+grep -n '\\' regular_express.txt
+# 这时不能把'替换为"
+
+# 找出含有$的行
+grep -n '\$' regular_express.txt
+# 如果用 grep -n "\$" regular_express.txt 则会列出所有行
+
+# 找出含有^的行
+grep -n '\^' regular_express.txt
+grep -n "\^" regular_express.txt
+
+# 找出含有*的行
+grep -n '\*' regular_express.txt
+grep -n "\*" regular_express.txt
+
+# z找出含有es,ess,esss的字符
+grep -n 'ess*' regular_express.txt
+
+# 搜索含有gl或者gd的那些行
+grep -n 'g[ld]' regular_express.txt
+
+# 搜索oog,ood，但不是oot, ^在[]内是反向选择的意思
+grep -n 'oo[^t]' regular_express.txt
 
 
+# 再次，正则表达式中的特殊字符和一般指令中的通配符不一样，例如在通配符中的*代表的是0到无穷多的
+# 意思，但是在正则表达式中是重复0次到无穷多次的前一个RE字符的意思。例如
+# 在不支持正则表达式的ls命令中，ls -l a* 代表的是列出以a为开头的所有文档,而在正则表达式中
+# 关键字的正则表达式。输出将是包含指定的起始和结束关键字之间的整个表达式的句子。此功能非常强大，因为您无需在搜索命令中编写整个表达式。句法：
+ls | grep -n '^a.*'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+############################## 鸟哥的linux私房菜 结束 #####################################
 
 
 
