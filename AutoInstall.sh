@@ -464,6 +464,8 @@ echo -e "${GREEN_BLACK}************************* 26、在 Ubuntu 20.04 上安装
 echo ${PASSWD} | sudo -S apt install zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+echo ${PASSWD} | sudo -S apt install zsh-autosuggestions zsh-syntax-highlighting zsh-theme-powerlevel9k
+
 echo -e "${GREEN_BLACK}************************* 26.1 安装 powerlevel9k  *************************${COLOR_RESET} \n"
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
