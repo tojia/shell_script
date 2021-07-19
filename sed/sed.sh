@@ -551,42 +551,6 @@ seq 9 |sed '/^$/d;G'
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 sed 's/dog/cat/'  data1.txt
 
 sleep 2
@@ -594,3 +558,30 @@ echo -e  "\n\n"
 
 
 sed -e 's/brown/green/; s/dog/cat/' data1.txt
+
+
+
+### 创建sed实用工具
+
+#   加倍行距
+sed '$!G' data2.txt
+
+# 对可能的空白行加倍行距
+sed '$!G' data6.txt
+sed '/^$/d ; $!G' data6.txt
+
+# 给文件的行编号
+sed '=' data2.txt | sed 'N; s/\n/ /'
+
+# 删除连续的空白行
+sed '/./,/^$/!d' data8.txt
+
+# 删除开头的空白行
+sed '/./,$!d' data9.txt
+
+# 删除结尾的空白行
+sed '{:start  /^\n*$/{$d ; N ; b start }}' data10.txt
+
+# 删除html标签
+sed 's/<[^>]*>//g ; /^$/d' data11.txt
+
