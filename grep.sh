@@ -107,11 +107,11 @@ grep -E 'fatal|error|critical' /var/log/nginx/error.log
 
 
 #  默认情况下，grep 命令是区分大小写的。要在搜索时忽略大小写，请调用 grep 加 -i （或 --ignore-case ）选项，示例如下：
-grep -i 'fatal|error|critical' /var/log/nginx/error.log
+grep -i -E 'fatal|error|critical' /var/log/nginx/error.log
 
 #  当你只想搜索某个单词时，比如你想搜索的是单词 error ，grep 命令会输出所有包含 error 字符串的行，即它除了会输出包含 error 单词的行，还会输出包含 errorless 或 antiterrorists 等非 error 单词的行，这样是极不方便的。
 #   因此要仅返回指定字符串是整词的行，或者是由非单词字符括起来的行，可以使用 grep 加 -w （或 --word-regexp ）选项：
-grep -w 'fatal|error|critical' /var/log/nginx/error.log
+grep -w -E 'fatal|error|critical' /var/log/nginx/error.log
 #  值得注意的是，单词字符包括有字母、数字字符（比如 a-z、a-Z 和 0-9 ）以及下划线（ _ ），所有其他字符都被视为非单词字符。
 
 # grep 支持三种正则表达式语法：Basic、Extended 和 Perl 正则表达式。当没有指定正则表达式类型时，grep 将搜索模式解释为 Basic 基本正则表达式。
@@ -121,6 +121,97 @@ grep -w 'fatal|error|critical' /var/log/nginx/error.log
 #默认情况 grep 区分大小写，如果需要忽略大小写，可以添加-i参数：
 grep -E -i 'VMX|SVM' /proc/cpuinfo
 egrep -i 'VMX|SVM' /proc/cpuinfo
+
+#*************************************  如何使用Grep的排出功能  ******************************************************
+# 要仅显示与搜索模式不匹配的行，请使用-v选项。例如，显示不包含nologin的行，使用下面命令：
+grep -wv nologin /etc/passwd
+
+
+# -w选项告诉 grep 仅返回 - w 选项后面包含单词的行。
+# 默认情况下 grep 区分大小写。这意味着大写和小写字符被视为不同的。若要在搜索时忽略大小写，请使用-i 选项调用 grep。
+# 如果搜索字符串中包含空格，则需要将内容放在单引号或者双引号内。
+# 若要排除两个或多个搜索条件，请使用-e选项，可根据需要多次使用-e选项：
+grep -wv -e nologin -e bash /etc/passwd
+
+# 排除多个搜索条件的另一个方式是使用运算符 |，以下示例打印不包含字符串nologin和bash的行：
+grep -wv 'nologin\|bash' /etc/passwd
+
+# 还可以使用扩展正则表达式，使用选项 -E参数后，运算符|就不需要被转义了，如下图：
+grep -Ewv 'nologin|bash' /etc/passwd
+
+# 下面一个实例，是排除/etc/ssh/sshd_config配置文件中的以#和 空格 开头的行：
+cat /etc/ssh/sshd_config |grep -Ev '(^#|^$)'
+
+# 下面的实例，要打印出系统上所有正在运行的进程，除了以 “root” 用户身份运行的进程：
+ps -ef|grep -wv root
+
+
+
+#*************************************  如何使用Grep的排出目录或文件  ******************************************************
+
+# 要从 grep 搜索中排除目录，请使用--exclude-dir选项。排除目录的路径是相对于后面指定的搜索目录。
+# 下面实例，显示如何在 /etc 目录中的所有文件中搜索单词keys，不包括 /etc/pki 目录：
+grep -Rw --exclude-dir=pki keys /etc/
+
+# 要排除多个目录，请将排除的目录括在大括号中，并使用逗号分隔，不要有空格。
+# 例如，要在系统中查找包含字符串 gnu 的文件，不包括 proc、boot 和 sys 目录，需要运行下面命令：
+grep -r --exclude-dir={proc,boot,sys} gnu /
+
+# 下面实例，使用--exclude选项排除多个文件，我们在当前工作目录中搜索字符串 linuxprobe，不包括以 .png 和 .jpg 结尾的文件：
+grep -rl --exclude=*.{png,jpg} linuxprobe *
+
+
+########################################  Shell 脚本中的 exit 状态解释   #######################################################
+# 命令的返回值是其退出状态，退出状态用于检查命令执行的结果（成功 / 失败）。如果退出状态为 0，则命令执行成功。如果命令失败，则退出状态为非零。
+# 下面表格中是返回值对应着退出状态的解释：
+#
+# 返回值       退出状态
+# 0            成功
+# 非 0          状态失败
+# 2             用法不正确
+# 126             不是可执行文件
+# 127           没有找到指令
+
+# shell 中的变量名$?是一个特殊的内置变量，可以获取最后一次执行命令的退出状态
+# 在执行 shell 函数后，$?返回函数中最后一次执行命令的退出状态。
+echo -e "Successful execution"
+echo -e "====================="
+echo "hello world"
+# 退出状态为0，因为命令执行是成功的。
+echo "Exit status" $?
+echo .
+echo -e "Incorrect usage"
+echo -e "====================="
+ls --option
+# 使用了错误的用法，所以退出状态为2。
+echo "Exit status" $?
+echo .
+echo -e "Command Not found"
+echo -e "====================="
+bashscript
+# 退出状态为127，因为该脚本或者命令不存在。
+echo "Exit status" $?
+echo .
+echo -e "Command is not an executable"
+echo -e "============================="
+touch execution.sh
+ls -l execution.sh
+./execution.sh
+# 退出状态为126，因为该文件没有执行权限。
+echo "Exit status" $?
+echo .
+echo -e "Custom status"
+echo -e "====================="
+function test1(){
+    if [ ! -x "./execution.sh"  ]; then
+        echo "\"./execution.sh\" no execute permission!!"
+        return 66
+    fi
+}
+test1
+# 退出状态为66，函数test1中判断文件是否不存在，不存在就返回echo语句，并定义了返回值。
+echo "Exit status" $?
+
 
 
 #************************** 一般正则表达式 ****************************************************
