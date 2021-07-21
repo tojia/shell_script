@@ -1136,6 +1136,138 @@ echo ${named}
 
 
 echo -e "\n ${WHITE_BLUE}------------------------19. 单小括号/单大括号 -------------------------${COLOR_RESET}\n"
-(cmd1; cmd2; cmd3)    新开一个shell一次执行命令cmd1、2、3，各个命令之间用分号隔开，最后一个命令后面可以没有分号
-{ cmd1; cmd2; cmd3;}    在当前shell顺序执行命令cmd1、2、3，各个命令之间用分号隔开，最后一个命令后必须有分号，第一条命令和左括号之间必须有空格。
+# (cmd1; cmd2; cmd3)    新开一个shell一次执行命令cmd1、2、3，各个命令之间用分号隔开，最后一个命令后面可以没有分号
+# { cmd1; cmd2; cmd3;}    在当前shell顺序执行命令cmd1、2、3，各个命令之间用分号隔开，最后一个命令后必须有分号，第一条命令和左括号之间必须有空格。
 
+
+
+echo -e "\n ${WHITE_BLUE}------------------------20. 使用 Bash printf 命令打印格式化输出 -------------------------${COLOR_RESET}\n"
+
+printf "我的兄弟 % s 今年 % d 岁.\n" 当年的大师兄 28
+
+printf "Hello World www.linuxmi.com Linux 迷 \n"
+# 注意末尾的换行符 \n 吗？echo 和 printf 命令之间的区别在于，echo 会在末尾自动添加一个新行字符，但对于 printf，则必须显式添加它。
+
+# 请记住，格式字符串会尝试应用于所有参数。这就是为什么您应该特别注意它的原因。
+printf "Hello, % s! \n" www.linuxmi.com Linux 迷
+Hello, www.linuxmi.com!
+Hello, Linux 迷！
+
+# 同样，您还应该注意格式字符串中需要的格式说明符类型。如上例所示，如果找不到预期的参数，它将显示默认值，字符串为 null，整数为 0。
+printf "你好 % s, 我们的网址为 % d. \n" Linux 迷 www.linuxmi.com 628
+
+# 有几种格式说明符可用于以所需格式显示输出。以下是一些最常见的方法：
+# 字符        用法
+# %s         字符串
+# %c         单个字符
+# %d         整数
+# %o         八进制整数
+# %x         十六进制整数
+# %f         浮点数
+# %b         带反斜杠转义符的字符串
+# %%         百分号
+
+
+printf "% d 的八进制值是 % o\n" 30 30
+
+
+# 让我们看看如何使用 % b 说明符来正确解释反斜杠转义字符。
+printf "带反斜杠的字符串: % s\n" "Hello\nWorld!"
+# 您看到的是％s，这没有什么区别。但是使用％b 可以正确解释新的换行符：
+printf "字符串与反斜杠: % b\n" "Hello\nWorld!"
+
+# 使用％c 时，它一次只能读取一个字符。
+printf "Character: %c\n" a
+printf "Character: %c\n" a b InteractInstall.sh
+printf "Character: %c\n" abc
+
+
+# 您可以在％d 中使用％和 d 之间的空格来显示带前导空格的正整数。当您有一列正数和负数时，这会有所帮助。看看哪个看起来更 “漂亮”：
+printf "%d \n%d \n%d \n" 70 -70 70
+printf "% d \n%d \n% d \n" 70 -70 70
+
+# 宽度修饰符是一个整数，它指定参数的最小字段宽度。默认情况下，它是右对齐的：
+printf "%10s| %5d\n" 12 月 25
+# 您可以通过添加 - 标志使其左对齐：
+printf "%-10s| %-5d\n" 12 月 25
+
+
+#您可以使用精度修饰符 (.) 点来来指定要用 % d， % u， % o， % x 显示的最小数字数目。它将在值的左侧添加零填充。
+printf "Roll Number: %.5d\n" 628
+
+#　如果对字符串使用精度修饰符，则它指定字符串的最大长度。如果字符串较长，则会在显示中被截断。
+printf "Name: %.5s\n" LinuxMi
+
+# 您可以结合使用宽度和精度修饰符：
+printf "Name: %.5s\n" LinuxMi
+printf "Name: %10.5s\n" LinuxMi
+
+
+linuxmi=--------------------
+linuxmi=$linuxmi$linuxmi
+rows="%-16s| %.7d| %3d| %c\n"
+TableWidth=38
+
+printf "%-15s| %-7s| %.3s| %s\n" Linux ID Order Sorting
+printf "%.${TableWidth}s\n" "$linuxmi"
+printf "$rows" "Ubuntu" 100 99 U
+printf "$rows" "CentOS" 101 77 C
+printf "$rows" "openSUSE" 102 88 O
+printf "$rows" "Red Hat" 103 66 R
+
+echo -e "\n ${WHITE_BLUE}------------------------19. 重定向操作符和 tee 命令将文本写入 Bash 中的文件 -------------------------${COLOR_RESET}\n"
+# 使用重定向运算符写入文件
+# 在 Bash 中，输出的重定向使您可以捕获命令的输出并将其写入文件。
+# 重定向并将输出写入文件的一般格式如下：
+# output > filename
+# output >> filename
+# > 重定向操作符将输出写入给定的文件。如果文件存在，它将被截断为零长度。否则，将创建文件。使用这个操作符时要格外小心，因为你可能会覆盖一个重要的文件。
+# >> 重定向操作符将输出追加到指定的文件。如果文件不存在，则创建该文件。
+# 您需要对该文件具有写权限。否则，您将收到一个权限被拒绝的错误。
+# 这是一个简单的示例，显示了如何将 echo 命令的输出重定向到文件：
+cd ~/tmp
+
+echo "welcome to www.linuxmi.com" > linuxmi.txt
+
+# 为了防止覆盖现有文件，请使用 set 内置功能启用 “noclobber” 选项：
+set -o “noclobber”
+
+echo "welcome to www.linuxmi.com" > linuxmi.txt
+
+# >| 操作符允许你覆盖 Bash 的 "noclobber" 选项:
+echo "welcome to www.linuxmi.com" >| linuxmi.txt
+
+
+# >> 操作符将输出追加到文件的末尾，而不是覆盖文件:
+echo "welcome to www.linuxmi.com" >> linuxmi.txt
+
+# 使用 printf 命令创建一个复杂的输出:
+printf "Hello, I'm %s.\n" $USER > Linuxmi.com.txt
+# 如果要将多个行写入文件，请参考 Here document（Heredoc）重定向。
+# 例如，您可以将内容传递给 cat 命令并将其写入文件：
+cat << EOF > linuxmi.com.txt
+当前的工作目录是: $PWD
+您以以下身份登录 $(whoami)
+EOF
+# 要附加这些行，在文件名之前用 >> 修改 >:
+cat << EOF >> linuxmi.txt
+当前的工作目录是: $PWD
+您以以下身份登录 $(whoami)
+EOF
+# 您可以将任何命令的输出写入文件：
+date +"Year: %Y, Month: %m, Day: %d" > xxvi.txt
+# date 命令的输出将被写入文件。
+
+
+# 使用 tee 命令写入文件
+# tee 命令从标准输入读取数据，并同时向标准输出和一个或多个文件写入数据。
+echo "welcome to www.linuxmi.com" | tee linuxmi.txt
+# 该 tee 命令的默认行为是覆盖指定文件，与 > 操作员相同。要将输出附加到文件，请使用 - a（--append）选项调用命令：
+echo "welcome to www.linuxmi.com" | tee -a linuxmi.com.txt
+# 如果您不希望 tee 写入标准输出，则可以将其重定向到 /dev/null：
+echo "welcome to www.linuxmi.com" | tee www.linuxmi.com.txt >/dev/null
+# 要将文本写到多个文件中，请指定文件作为 tee 命令的参数：
+echo "welcome to www.linuxmi.com" | tee file_1.txt file_2.txt file_3.txt
+# 该 tee 命令的另一个优点是，您可以将其与 sudo 其他用户拥有的文件结合使用并写入其中。要将文本追加到您没有写许可权的文件中，请 sudo 在之前加上 tee：
+echo "welcome to www.linuxmi.com" | sudo tee linuxmi.txt
+# echo 命令输出作为输入传递给 tee, tee 将提升 sudo 权限并将文本写入文件。
