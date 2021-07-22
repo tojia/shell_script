@@ -511,9 +511,9 @@ echo ${PASSWD} | sudo -S apt install fonts-firacode
 
 echo '# eval "$(starship init bash)"' >>~/.bashrc
 
-echo "# eval "$(starship init zsh)"" >>~/.zshrc
+echo '# eval "$(starship init zsh)"' >>~/.zshrc
 
-echo "# eval eval (starship init fish)" >>~/.config/fish/config.fish
+echo '# eval "$(starship init fish)"' >>~/.config/fish/config.fish
 
 echo -e "您只需要在 .config 目录中创建一个配置文件（TOML 文件）。如果已经拥有一个，则只需导航到该目录并创建配置文件即可。\n
 
