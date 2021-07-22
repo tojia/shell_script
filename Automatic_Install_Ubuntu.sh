@@ -356,8 +356,6 @@ sha256sum --ignore-missing -c checksums.txt
 echo ${PASSWD} | sudo -S dpkg -i duf_0.5.0_linux_amd64.deb
 cd
 
-
-
 echo -e "${GREEN_BLACK}************************* 22、安装 plots、*************************${COLOR_RESET} \n"
 
 echo ${PASSWD} | sudo -S add-apt-repository ppa:apandada1/plots
@@ -465,6 +463,12 @@ git clone https://github.com/junjiecjj/dwm.git
 cd dmenu
 echo ${PASSWD} | sudo -S make clean install
 cd
+
+echo -e "${GREEN_BLACK}************************* 26、在 Ubuntu 20.04 上安装 fish  *************************${COLOR_RESET} \n"
+
+echo ${PASSWD} | sudo -S apt-add-repository ppa:fish-shell/release-3
+echo ${PASSWD} | sudo -S apt update
+echo ${PASSWD} | sudo -S -y apt install fish
 
 echo -e "${GREEN_BLACK}************************* 26、在 Ubuntu 20.04 上安装 zsh  *************************${COLOR_RESET} \n"
 
