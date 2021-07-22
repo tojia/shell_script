@@ -503,6 +503,24 @@ git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/plugins/zsh-nvm
 echo "${WHITE_BLUE}************************* 26.7 安装pyenv *************************${COLOR_RESET}\n"
 git clone https://github.com/davidparsson/zsh-pyenv-lazy.git ~/.oh-my-zsh/plugins/pyenv-lazy
 
+echo "${WHITE_BLUE}************************* 26.8 用 Rust 编写的极简且快速的 Shell 提示符 *************************${COLOR_RESET}\n"
+echo ${PASSWD} | sudo -S snap install starship
+
+echo ${PASSWD} | sudo -S apt install fonts-powerline
+echo ${PASSWD} | sudo -S apt install fonts-firacode
+
+echo '# eval "$(starship init bash)"' >>~/.bashrc
+
+echo "# eval "$(starship init zsh)"" >>~/.zshrc
+
+echo "# eval eval (starship init fish)" >>~/.config/fish/config.fish
+
+echo -e "您只需要在 .config 目录中创建一个配置文件（TOML 文件）。如果已经拥有一个，则只需导航到该目录并创建配置文件即可。\n
+
+以下是您必须键入以创建目录和配置文件的内容："
+
+mkdir -p ~/.config && touch ~/.config/starship.toml
+
 echo -e "${GREEN_BLACK}************************* 27 安装vim使用的plugin插件 *************************${COLOR_RESET}\n"
 cd
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
