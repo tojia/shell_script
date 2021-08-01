@@ -721,3 +721,12 @@ echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/doc/taglist.txt /usr/share
 echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/plugin/taglist.vim /usr/share/vim/vim82/plugin/
 echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/doc/taglist.txt /usr/share/vim/vim81/doc/
 echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/plugin/taglist.vim /usr/share/vim/vim81/plugin/
+
+echo -e "${PURPLE_BLACK}************************* 30 安装Clapper：一款外观时尚的 Linux 视频播放器，极简主义者适用   *************************${COLOR_RESET}\n"
+echo ${PASSWD} | sudo -S apt install flatpak
+echo ${PASSWD} | sudo -S apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak install flathub com.github.rafostar.Clapper
+
+echo -e "安装后，只需在应用菜单中搜索它，或右击视频文件，选择用 Clapper 打开它。"
