@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 BLACK_BLACK='\e[40;30;1m'
 BLACK_RED='\e[40;31;1m'
@@ -722,7 +722,15 @@ echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/plugin/taglist.vim /usr/sh
 echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/doc/taglist.txt /usr/share/vim/vim81/doc/
 echo ${PASSWD} | sudo -S cp -f ${taglist_downloaddir}/plugin/taglist.vim /usr/share/vim/vim81/plugin/
 
-echo -e "${PURPLE_BLACK}************************* 30 安装Clapper：一款外观时尚的 Linux 视频播放器，极简主义者适用   *************************${COLOR_RESET}\n"
+
+
+echo -e "${PURPLE_BLACK}************************* 30 安装游戏   *************************${COLOR_RESET}\n"
+echo ${PASSWD} | sudo -S  add-apt-repository ppa:stk/dev
+echo ${PASSWD} | sudo -S  apt-get update
+echo ${PASSWD} | sudo -S  apt-get install supertuxkart
+echo ${PASSWD} | sudo -S  apt-get install simutrans-pak64
+
+echo -e "${PURPLE_BLACK}************************* 31 安装Clapper：一款外观时尚的 Linux 视频播放器，极简主义者适用   *************************${COLOR_RESET}\n"
 echo ${PASSWD} | sudo -S apt install flatpak
 echo ${PASSWD} | sudo -S apt install gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
