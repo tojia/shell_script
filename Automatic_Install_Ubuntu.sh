@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 BLACK_BLACK='\e[40;30;1m'
 BLACK_RED='\e[40;31;1m'
@@ -738,3 +738,4 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak install flathub com.github.rafostar.Clapper
 
 echo -e "安装后，只需在应用菜单中搜索它，或右击视频文件，选择用 Clapper 打开它。"
+

@@ -8,9 +8,6 @@
 
 
 
-
-
-
 BLACK_BLACK='\e[40;30;1m'
 BLACK_RED='\e[40;31;1m'
 BLACK_GREEN='\e[40;32;1m'
@@ -1271,3 +1268,194 @@ echo "welcome to www.linuxmi.com" | tee file_1.txt file_2.txt file_3.txt
 # 该 tee 命令的另一个优点是，您可以将其与 sudo 其他用户拥有的文件结合使用并写入其中。要将文本追加到您没有写许可权的文件中，请 sudo 在之前加上 tee：
 echo "welcome to www.linuxmi.com" | sudo tee linuxmi.txt
 # echo 命令输出作为输入传递给 tee, tee 将提升 sudo 权限并将文本写入文件。
+
+
+
+echo -e "\n ${WHITE_BLUE}------------------------20. 8个 Date 命令使用示例------------------------${COLOR_RESET}\n"
+
+# date命令不加任何命令选项，它显示当前日期和时间，包括星期几，月份，年份，h:m:s格式的时间以及时区，如下所示。
+date
+
+#要以UTC（世界标准时间）显示时间，需要加-u选项。
+date -u
+
+#可以使用--date选项以字符串格式显示特定日期，这不会影响系统的日期和时间，只是将日期格式转换为字符串：
+date --date="5/20/2021 13:14"
+
+
+#date命令还可以打印相对于当前日期的过去日期和时间。例如查看9天前的日期是多少，请运行命令：
+date --date="9 days ago"
+
+# 查看三个月前的日期是多少：
+date --date="3 months ago"
+
+
+# 查看两年前的今天日期是多少：
+date --date="2 years ago"
+
+
+
+# date命令带有许多选项，面列出了一些可用的格式设置选项。
+
+# %D – 日期显示格式为 月/日/年
+# %Y – 年份(例如：2021)
+# %m – 月份(01-12)
+# %B – 月份的完整名称 (例如 January)
+# %b – 月份的短名称 (例如 Jan)
+# %d – 月份中的哪一天 (例如 01)
+# %j – 一年中的第几天(001-366)
+# %u – 一个星期中的第几天 (1-7)
+# %A – 星期几的全程(例如 Friday)
+# %a – 星期几的短名称 (例如 Fri)
+# %H – 小时，24小时制 (00-23)
+# %I – 小时，12小时制 (01-12)
+# %M – 分钟 (00-59)
+# %S – 秒 (00-60)
+
+
+# 使用date选项的语法非常简单：date "+%option"
+
+# 例如，要以yy/mm/dd格式打印日期，请运行：
+date "+%Y/%m/%d"
+
+# date命令还允许设置日期和时间。例如，要将日期和时间设置为2021年6月25日上午11:15，请运行以下命令：
+date --set="20210625 11:15"
+
+# 在创建Shell脚本的时候，我们将date命令保存到一个变量中，然后使用该变量创建日志文件，示例如下所示：
+LOGFILE=/tmp/logs-$(date +%d-%m-%Y_%T)
+echo "##Check Cluster for Failed Resources##"  >> $LOGFILE
+crm_mon -1 -rf | grep FAILED  >> $LOGFILE
+echo -e "\n\n" >> $LOGFILE
+echo "##Check Cluster for Stopped Resources##"  >> $LOGFILE
+crm_mon -1 -rf | grep -i STOPPED  >> $LOGFILE
+echo -e "\n\n" >> $LOGFILE
+
+
+
+echo -e "\n ${WHITE_BLUE}------------------------21. netstat命令详解 -----------------------${COLOR_RESET}\n"
+#简介: netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
+#输出信息含义:
+# 从整体上看，netstat的输出结果可以分为两个部分：
+# 1. Active Internet connections，称为有源TCP连接，其中"Recv-Q"和"Send-Q"指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。
+# 2. Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+# Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。
+#
+# -a (all)显示所有选项，默认不显示LISTEN相关
+# -t (tcp)仅显示tcp相关选项
+# -u (udp)仅显示udp相关选项
+# -n 拒绝显示别名，能显示数字的全部转化成数字。
+# -l 仅列出有在 Listen (监听) 的服务状态
+# -p 显示建立相关链接的程序名
+# -r 显示路由信息，路由表
+# -e 显示扩展信息，例如uid等
+# -s 按各个协议进行统计
+# -c 每隔一个固定时间，执行该netstat命令。
+
+
+# 提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到
+# # 实用命令实例
+# 1. 列出所有端口 (包括监听和未监听的)
+# 列出所有端口 netstat -a
+netstat -a | more
+
+# 列出所有 tcp 端口 netstat -cat
+netstat -cat
+
+# 列出所有 udp 端口 netstat -au
+netstat -au
+
+# 2. 列出所有处于监听状态的 Sockets
+# 只显示监听端口 netstat -l
+netstat -l
+
+
+# 只列出所有监听 tcp 端口 netstat -lt
+netstat -lt
+
+# 只列出所有监听 udp 端口 netstat -Cluster
+netstat -lu
+
+# 只列出所有监听 UNIX 端口 netstat -lx
+netstat -lx
+
+# 3. 显示每个协议的统计信息
+# 显示所有端口的统计信息 netstat -s
+netstat -s
+
+
+# 显示 TCP 或 UDP 端口的统计信息 netstat -st 或 -sudo
+netstat -st
+netstat -su
+
+
+# 4. 在 netstat 输出中显示 PID 和进程名称 netstat -p
+# netstat -p 与其它参数一起使用就可以添加 “PID/进程名称” 到 netstat 输出中，这样 debugging 的时候可以很方便的发现特定端口运行的程序。
+netstat -pt
+
+# 5. 在 netstat 输出中不显示主机，端口和用户名 (host, port or user)
+# 当你不想让主机，端口和用户名显示，使用 netstat -n。将会使用数字代替那些名称。
+netstat -an
+
+
+# 如果只是不想让这三个名称中的一个被显示，使用以下命令
+netsat -a --numeric-ports
+netsat -a --numeric-hosts
+netsat -a --numeric-users
+
+
+# 6. 持续输出 netstat 信息
+# netstat 将每隔一秒输出网络信息。
+netstat -c
+
+# 7. 显示系统不支持的地址族 (Address Families)
+netstat --verbose
+
+#8. 显示核心路由信息 netstat -r
+netstat -r
+
+# 注意： 使用 netstat -rn 显示数字格式，不查询主机名称。
+
+
+# 9. 找出程序运行的端口
+# 并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。
+netstat -ap | grep ssh
+
+
+
+# 找出运行在指定端口的进程
+netstat -an | grep ':80'
+
+# 10. 显示网络接口列表
+netstat -i
+
+# 显示详细信息，像是 ifconfig 使用 netstat -ie:
+netstat -ie
+
+
+# 11. IP和TCP分析
+# 查看连接某服务端口最多的的IP地址
+netstat -nat | grep "192.168.1.15:22" |awk '{print $5}'|awk -F: '{print $1}'|sort|uniq -c|sort -nr|head -20
+
+
+# TCP各种状态列表
+netstat -nat |awk '{print $6}'
+
+
+#先把状态全都取出来,然后使用uniq -c统计，之后再进行排序。
+netstat -nat |awk '{print $6}'|sort|uniq -c
+
+#最后的命令如下:
+netstat -nat |awk '{print $6}'|sort|uniq -c|sort -rn
+
+
+# 分析access.log获得访问前10位的ip地址
+awk '{print $1}' access.log |sort|uniq -c|sort -nr|head -10
+
+
+
+echo -e "\n ${WHITE_BLUE}------------------------22.       ----------------------${COLOR_RESET}\n"
+
+
+
+
+
