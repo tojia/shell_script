@@ -739,3 +739,23 @@ flatpak install flathub com.github.rafostar.Clapper
 
 echo -e "安装后，只需在应用菜单中搜索它，或右击视频文件，选择用 Clapper 打开它。"
 
+
+******************** 31  安装游戏   *************************${COLOR_RESET}\n"
+echo ${PASSWD} | sudo -S  add-apt-repository ppa:stk/dev
+echo ${PASSWD} | sudo -S  apt-get update
+echo ${PASSWD} | sudo -S  apt-get install supertuxkart
+echo ${PASSWD} | sudo -S  apt-get install simutrans-pak64
+
+echo -e "${PURPLE_BLACK}************************* 32 万能的音视频转换器Mysqit ************************${COLOR_RESET}\n"
+echo ${PASSWD} | sudo -S  sh -c "echo 'deb https://download.opensuse.org/repositories/home:/llamaret/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/home:llamaret.list"
+
+wget -nv https://download.opensuse.org/repositories/home:/llamaret/xUbuntu_20.04/Release.key -O Release.key
+
+echo ${PASSWD} | sudo -S  apt-key add - < Release.key
+
+echo ${PASSWD} | sudo -S  apt-get update
+
+echo ${PASSWD} | sudo -S  apt-get install mystiq
+
+
+******************** 33       *************************${COLOR_RESET}\n"
