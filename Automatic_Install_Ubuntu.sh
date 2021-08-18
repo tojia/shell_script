@@ -758,4 +758,20 @@ echo ${PASSWD} | sudo -S  apt-get update
 echo ${PASSWD} | sudo -S  apt-get install mystiq
 
 
-******************** 33       *************************${COLOR_RESET}\n"
+******************** 33、   18 个工具分析 Linux 系统占用网络带宽大的程序    *************************${COLOR_RESET}\n"
+# https://mp.weixin.qq.com/s?__biz=MzAxODI5ODMwOA==&mid=2666556780&idx=2&sn=d84342f8cc985a0bf32d0d4314b657fd&chksm=80dca9c7b7ab20d1fc52c0cc1331d6b3752fc2c286e2a0a26a8971338f1f9bcb44a84e81ed54&mpshare=1&scene=24&srcid=0818ndyVaH1bLQzrSVEPZ4CD&sharer_sharetime=1629258706784&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=AfYNRIyCn4HFOZjG9fcRU3Q%3D&pass_ticket=6Y1lZaR%2BVJtIAbqgKMobMHXtcI9zT%2Bcf9lgsTpu9GP7GDvBu7lqICGXHhXfqMBIf&wx_header=0#rd
+# https://zhuanlan.zhihu.com/p/269978796
+
+echo ${PASSWD} | sudo -S  apt  install nload bmon slurm bwm-ng cbm speedometer vnstat ifstat dstat collectl iftop iptraf tcptrack pktstat nethogs netdiag
+
+
+
+******************** 33、 个工具分析 Linux 系统占用网络带宽大的程序    * ************************${COLOR_RESET}\n"
+
+echo ${PASSWD} | sudo -S  apt-get install tig mycli jq axel  cloc multitail shellcheck
+
+
+
+
+
+
