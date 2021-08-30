@@ -740,7 +740,7 @@ flatpak install flathub com.github.rafostar.Clapper
 echo -e "安装后，只需在应用菜单中搜索它，或右击视频文件，选择用 Clapper 打开它。"
 
 
-******************** 31  安装游戏   *************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}**************************** 31  安装游戏   *************************${COLOR_RESET}\n"
 echo ${PASSWD} | sudo -S  add-apt-repository ppa:stk/dev
 echo ${PASSWD} | sudo -S  apt-get update
 echo ${PASSWD} | sudo -S  apt-get install supertuxkart
@@ -758,7 +758,7 @@ echo ${PASSWD} | sudo -S  apt-get update
 echo ${PASSWD} | sudo -S  apt-get install mystiq
 
 
-******************** 33、   18 个工具分析 Linux 系统占用网络带宽大的程序    *************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}**************************** 33、   18 个工具分析 Linux 系统占用网络带宽大的程序    *************************${COLOR_RESET}\n"
 # https://mp.weixin.qq.com/s?__biz=MzAxODI5ODMwOA==&mid=2666556780&idx=2&sn=d84342f8cc985a0bf32d0d4314b657fd&chksm=80dca9c7b7ab20d1fc52c0cc1331d6b3752fc2c286e2a0a26a8971338f1f9bcb44a84e81ed54&mpshare=1&scene=24&srcid=0818ndyVaH1bLQzrSVEPZ4CD&sharer_sharetime=1629258706784&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=AfYNRIyCn4HFOZjG9fcRU3Q%3D&pass_ticket=6Y1lZaR%2BVJtIAbqgKMobMHXtcI9zT%2Bcf9lgsTpu9GP7GDvBu7lqICGXHhXfqMBIf&wx_header=0#rd
 # https://zhuanlan.zhihu.com/p/269978796
 
@@ -766,11 +766,72 @@ echo ${PASSWD} | sudo -S  apt  install nload bmon slurm bwm-ng cbm speedometer v
 
 
 
-******************** 33、 个工具分析 Linux 系统占用网络带宽大的程序    * ************************${COLOR_RESET}\n"
+echo -e "${PURPLE_BLACK}**************************** 34、 Linux 这些工具堪称神器！你用过哪个？    * ************************${COLOR_RESET}\n"
 
+# https://mp.weixin.qq.com/s?__biz=MzA4NzQzMzU4Mg==&mid=2652963742&idx=2&sn=49aaed20580d016a6717b5a563251141&chksm=8bec2b9fbc9ba28971e76d65cc2b9ec8d96945b835724406fea1f4350d82de62024e4f436e96&mpshare=1&scene=1&srcid=0818mUw0Om4QejtYPb5s5SQl&sharer_sharetime=1630326325504&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=ARcv4LPCYrn9Z5VGYT2qhYw%3D&pass_ticket=4N8gJ8MNmQqrBBQn56hXhf26wo%2BXDS3rryu8YvGMG6mAjFOupc6ePoYMO59hs15d&wx_header=0#rd
 echo ${PASSWD} | sudo -S  apt-get install tig mycli jq axel  cloc multitail shellcheck
 
 
+
+echo -e "${PURPLE_BLACK}**************************** 35、  终端文件管理器nnn  ***********************${COLOR_RESET}\n"
+cd ~/tmp
+git clone --depth 1 https://github.com/jarun/nnn
+cd nnn && make
+echo ${PASSWD} | sudo -S  make install
+
+
+echo -e "${PURPLE_BLACK}**************************** 35、用于替换 find 的搜索工具fd  ***********************${COLOR_RESET}\n"
+cd ~/tmp
+
+wget https://github.com/sharkdp/fd/releases/download/v7.1.0/fd_7.1.0_amd64.deb
+
+echo ${PASSWD} | sudo -S  dpkg -i fd_7.1.0_amd64.deb
+
+
+
+echo -e "${PURPLE_BLACK}**************************** 35、cat 的替代品，是猛男就用 bat **********************${COLOR_RESET}\n"
+
+wget https://github.com/sharkdp/bat/releases/download/v0.10.0/bat_0.10.0_amd64.deb
+
+echo ${PASSWD} | sudo -S  dpkg -i bat_0.10.0_amd64.deb
+
+echo ${PASSWD} | sudo -S apt install bat
+
+
+
+
+
+echo -e "${PURPLE_BLACK}**************************** 35、9 个常用 Linux 应用程序的轻量级替代方案*********************${COLOR_RESET}\n"
+
+
+#  Midori： Web 浏览器
+echo ${PASSWD} | sudo -S apt install midori
+
+
+#  在基于 Ubuntu 的发行版上安装 Trojita
+echo ${PASSWD} | sudo -S sh -c "echo 'deb http://download.opensuse.org/repositories/home:/jkt-gentoo:/trojita/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/trojita.list"
+
+wget http://download.opensuse.org/repositories/home:jkt-gentoo:trojita/xUbuntu_16.04/Release.key
+
+echo ${PASSWD} | sudo -S apt-key add - < Release.key
+
+echo ${PASSWD} | sudo -S apt update
+
+echo ${PASSWD} | sudo -S apt install trojita
+
+
+# 在基于 Ubuntu 的发行版上安装 Yarock
+echo ${PASSWD} | sudo -S add-apt-repository ppa:nilarimogard/webupd8
+
+echo ${PASSWD} | sudo -S apt update
+
+echo ${PASSWD} | sudo -S apt install yarock
+
+# Mousepad：文本编辑器
+echo ${PASSWD} | sudo -S apt install mousepad
+
+# lnav 是一个很好的工具，你可以用它来通过彩色编码的信息以更有条理的方式监控日志文件。在 Linux 系统中，它不是默认安装的。你可以用下面的命令来安装它：
+echo ${PASSWD} | sudo -S  apt install lnav
 
 
 
