@@ -1600,7 +1600,98 @@ awk '{print $1}' access.log |sort|uniq -c|sort -nr|head -10
 
 
 
-echo -e "\n ${WHITE_BLUE}------------------------22.       ----------------------${COLOR_RESET}\n"
+echo -e "\n ${WHITE_BLUE}------------------------22.  脚本内启动其他脚本 ----------------------${COLOR_RESET}\n"
+
+
+
+
+cat << EOF
+
+方式1： 如果脚本有执行权限的话，.path/to/foo.sh。如果没有，bash path/to/foo.sh。
+./script.sh
+执行shell脚本时是在当前shell（称为父shell）开启一个子shell环境，此shell脚本就在这个子shell环境中执行。shell脚本执行完后子shell环境随即关闭，然后又回到父shell中.子进程中的各项变量在子进程结束后不会影响到父进程。如下，执行完该脚本后，当前shell进行并不会存在KKK这个变量.
+
+fork 是最普通的, 就是直接在脚本里面用 path/to/foo.sh 来调用
+foo.sh 这个脚本，比如如果是 foo.sh 在当前目录下，就是 ./foo.sh。运行的时候 terminal 会新开一个子 Shell 执行脚本 foo.sh，子 Shell 执行的时候, 父 Shell 还在。子 Shell 执行完毕后返回父 Shell。 子 Shell 从父 Shell 继承环境变量，但是子 Shell 中的环境变量不会带回父 Shell。
+
+新开一个子 Shell 执行，子 Shell 可以从父 Shell 继承环境变量，但是子 Shell 中的环境变量不会带回给父 Shell。
+
+方式二：和方式一相同
+sh script.sh 或 bash script.sh
+
+
+
+方式三：
+source script.sh
+执行shell脚本时是在当前shell中执行的，脚本中的各项变量在脚本结束后仍然存在。比如上面的脚本，在执行source script.sh后，当前shell中会存在KKK=123这个变量。
+
+与 fork 的区别是不新开一个子 Shell 来执行被调用的脚本，而是在同一个 Shell 中执行. 所以被调用的脚本中声明的变量和环境变量, 都可以在主脚本中进行获取和使用，相当于合并两个脚本在执行。
+
+在同一个 Shell 中执行，在被调用的脚本中声明的变量和环境变量, 都可以在主脚本中进行获取和使用，相当于合并两个脚本在执行。
+
+
+方式四：
+exec script.sh
+shell的内建命令,exec将并不启动新的shell，而是用要被执行命令替换当前的shell进程，并且将老进程的环境清理掉，而且exec命令后的其它命令将不再执行。也就是说当命令结束后，会
+
+
+exec 与 fork 不同，不需要新开一个子 Shell 来执行被调用的脚本. 被调用的脚本与父脚本在同一个 Shell 内执行。但是使用 exec 调用一个新脚本以后, 父脚本中 exec 行之后的内容就不会再执行了。这是 exec 和 source 的区别.
+
+在同一个 Shell 内执行，但是父脚本中 exec 行之后的内容就不会再执行了
+
+
+
+
+EOF
+
+
+
+echo -e "11111111111111111111111\n"
+
+
+exec  ./script.sh
+
+
+echo -e "333333333333333333333333\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
