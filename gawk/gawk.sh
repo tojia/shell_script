@@ -15,6 +15,8 @@
 # 变量：内置和自定义变量，每个变量前加 -v 命令选项
 
 
+echo -e "------------------------------------------------------------------------------\n"
+#  https://mp.weixin.qq.com/s?__biz=MjM5NDEwNzc0MQ==&mid=2650947951&idx=2&sn=ed0e3fd1e9c2c9e5d37f0f9149f6dbac&chksm=bd7a395d8a0db04b74106cc6a8ee14304198e8560abb3fec2ac3298b72549792593fefac4405&mpshare=1&scene=24&srcid=0409pP4UY19YCERoOIj49h9s&sharer_sharetime=1617934485396&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=AW3nPA2WzetqLMGc4oMQk1I%3D&pass_ticket=iOCM5ieHfwEfQ%2FjU5W1FxGqCevkLnW5GlfznN4%2BZQ%2Bw6Zl6JcaeVcrZ57G0sUWL5&wx_header=0#rd
 
 
 # 默认情况下，Awk命令用于打印文件的内容。在本例中，没有指定模式，因此操作应用于文件的每一行。
@@ -23,7 +25,8 @@ awk '{print}' linuxmi.txt
 
 
 # 要打印与给定模式匹配的行，让我们打印其中包含单词“linuxmi”的所有行。
-awk '/linuxmi/'{print}' linuxmi.txt
+awk '/linuxmi/{print}' linuxmi.txt
+awk '/linuxmi/'{print} linuxmi.txt
 
 # Awk用于将一行分割成多个字段并打印出内容。让我们打印linuxmi.txt文件中行的第一部分和第二部分。
 awk '{print $1,$2}' linuxmi.txt
@@ -41,6 +44,9 @@ awk 'NR==3, NR==6 {print NR,$0}' linuxmi.txt
 awk '{print NF}' linuxmi.txt
 
 
+# $NF - 输出每个记录（行）中最后的字段
+awk '{print  $NF}' linuxmi.txt
+
 
 # OFS - 输出字段分隔符–用于指定输出值的分隔符。
 awk 'OFS="/" {print $1,$4}' linuxmi.txt
@@ -48,6 +54,16 @@ awk 'OFS="/" {print $1,$4}' linuxmi.txt
 
 #  BEGIN规则应该在任何文本处理之前执行一次，并且在执行其他任何操作之前先执行。
 awk 'BEGIN{print sqrt(400)}'
+
+
+# 添加模式
+# 大于的值的输出。例如，在我们的文件中，最后一个字段表示薪水数字，我们只需要在值大于35000时输出
+awk '$NF>=35000 {print $1,$4}' linuxmi.txt
+
+
+echo -e "------------------------------------------------------------------------------\n"
+# https://mp.weixin.qq.com/s?__biz=MzIwMjM0NzU1OQ==&mid=2247484174&idx=1&sn=29e58aa7ecc4ece11fb3f99dd445adf5&chksm=96e14646a196cf50a8a486f8c351e78cb745acb1fa7f76a169e488201d83259fc7a4ebef25f7&mpshare=1&scene=24&srcid=0621Svua26xE447GpXzfcDFT&sharer_sharetime=1624267620612&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=ARRLibjFrpwjzIfPYijceYQ%3D&pass_ticket=iOCM5ieHfwEfQ%2FjU5W1FxGqCevkLnW5GlfznN4%2BZQ%2Bw6Zl6JcaeVcrZ57G0sUWL5&wx_header=0#rd
+
 
 # 实例1：点击回车出现hello world
 gawk '{print "Hello World!"}' linuxmi.txt
@@ -258,7 +274,34 @@ print day
 }'
 
 
+echo -e "------------------------------------------------------------------------\n"
+
 # 以下案列在：https://mp.weixin.qq.com/s/TYEqcV1oTV-jsm6kG8HdoQ
+
+# （1）格式
+
+# FS ：输入字段分隔符，默认为空白字符
+
+# OFS ：输出字段分隔符，默认为空白字符
+
+# RS ：输入记录分隔符，指定输入时的换行符，原换行符仍有效
+
+# ORS ：输出记录分隔符，输出时用指定符号代替换行符
+
+# NF ：字段数量，共有多少字段， 图片(NF-1)引用倒数第2列
+
+# NR ：行号，后可跟多个文件，第二个文件行号继续从第一个文件最后行号开始
+
+# FNR ：各文件分别计数, 行号，后跟一个文件和NR一样，跟多个文件，第二个文件行号从1开始
+
+# FILENAME ：当前文件名
+
+# ARGC ：命令行参数的个数
+
+# ARGV ：数组，保存的是命令行所给定的各参数，查看参数
+
+# （2）演示
+
 awk -v FS=':' '{print $1,$2}' awkdemo  #FS指定输入分隔符
 
 
@@ -667,40 +710,120 @@ chmod +x f3.awk
 ./f3.awk -F: min=100 max=200 /etc/passwd
 
 
+echo -e "-------------------------------------------------------------------------------"
+# https://mp.weixin.qq.com/s?__biz=MzAwMzc4MTExOA==&mid=2649800092&idx=1&sn=614713c267bbf58f5223580b1fae8d1d&chksm=8331e50db4466c1b195b97451e8f963ed1a4fa68922891c4a25cbbdf4f625e12523e7a4b9ace&mpshare=1&scene=24&srcid=06217wYkW2vSMJ35sWYWfHL9&sharer_sharetime=1624269986273&sharer_shareid=0d5c82ce3c8b7c8f30cc9a686416d4a8&exportkey=AUehm8JXMXYpOHeBeVq56j4%3D&pass_ticket=iOCM5ieHfwEfQ%2FjU5W1FxGqCevkLnW5GlfznN4%2BZQ%2Bw6Zl6JcaeVcrZ57G0sUWL5&wx_header=0#rd
+
+1、如何使用awk命令打印文件的列？
+现在，打印文件的第二列，使用:
+awk '{print $2}' student.txt
+
+
+要打印多个字段，使用命令:
+awk '{print $1,$2,$3}' student.txt
+
+
+
+
+如果你不使用逗号“，”，那么输出将没有空格:
+awk '{print $1$2$3}' student.txt
+
+
+2、如何使用正则表达式与awk命令:
+为了匹配字符串或任何表达式，我们使用斜杠" // "，例如，如果你想打印正在学习"lishi"的人的名字，那么使用:
+awk '/历史/{print $2}' student.txt
+
+输出清楚地表明，只有“张三”和“方咪”正在学习“历史”课程。
+
+
+3、如何通过“awk”命令使用关系表达式：
+为了匹配特定字段的内容，可以使用关系表达式。要将任何字符串或表达式与字段进行匹配，请指示该字段，并使用比较符“〜”与以下命令中显示的模式进行比较：
+awk '$3 ~/语/ {print $2}' student.txt
+
+
+上面的输出显示第2列中的每个字段与第3列中包含“语”的每个字段的对比。
+要获得上述命令的相反输出，请使用“! ~”运算符：
+
+awk '$3!~/语/ {print $2}' student.txt
+
+
+
+
+为了进行比较，我们还可以使用大于“>”，小于“ <”和等于“ =”的运算符：
+awk '$4>81 {print $2}' student.txt
+
+输出显示了获得81分以上得分的人员的姓名。
+
+
+
+
+4、如何通过awk命令使用范围模式：
+范围也可以用于搜索；只需使用逗号“，”来分隔范围，如下面提到的命令所示：
+awk '/李四/,/陈明/ {print $3}' student.txt
+
+
+
+输出显示第2列中人员的姓名，第4列中标记“ 87到91”的范围。
+awk '$4==87,$4==91 {print $2}' student.txt
+
+
+
+
+5、如何使用逻辑运算符组合模式：
+使用逻辑运算符（例如OR“ ||”，“ &&&”）可以组合模式进行搜索。使用以下命令
+awk '$4>81 && $6>0.4 {print $2}' student.txt
+
+
+
+
+上面的命令将在第四个字段上打印大于81的人名，在第六个字段上打印大于0.4的人名。并且只有两个记录满足条件。
+6、awk命令的特殊表达式：
+有两个特殊表达式，“ BEGIN”和“ END”：
+开始：在处理数据之前执行操作
+结束：在处理完数据后执行一项操作
+
+awk 'BEGIN {print "处理已经开始"}; {print $2}; END {print "处理已结束"}' student.txt
 
 
 
 
 
+7、awk命令的有用的内置变量：
+awk命令具有各种有助于数据处理的变量：
+变量	说明
+NF	它给出了数据中字段的数量
+NR	给出当前记录的编号
+FILENAME	显示当前正在处理的文件的名称
+FS 和 OFS	字段分隔符和输出字段分隔符
+RS 和 ORS	分离记录和输出记录分隔符
+示例：
+
+
+awk 'END{print "文件名是 ", FILENAME, "有", NF, "个字段和", NR, "个记录"}' student.txt
+
+
+8、如何更改记录分隔符：
+记录中的默认分隔符通常为空格；如果有逗号“，”或点“。”作为字段分隔符，然后将“ FS”选项与分隔符一起使用。
+我们再来看一个文件，其中的数据字段之间用逗号“：”隔开：
+
+awk 'BEGIN {FS=":"}{print $2}' student.txt
+
+
+由于文件的分隔符是冒号，但是“ awk”命令甚至对此类文件也很有用，因此只需使用“ FS”选项即可。
+也可以使用“ -F”：
+awk -F ":" '{print $2}' student.txt
+默认记录分隔符为“换行符”，并将记录分隔符设置为“：”，请使用：
+awk 'BEGIN{RS=":"}{print $1}' linuxmi.txt
 
 
 
+9、Awk Actions：
+Awk Actions是由“{}”括号括起来的小程序，它有多个用分号“；”分隔的语句。
+使用“ awk”命令最常用的语句是“ print”语句。例如，要打印每条记录的文本，请在引号中使用文本字符串：
+awk '{print "Linux迷 www.linuxmi.com," $2}'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+让我们使用awk执行简单的求和运算：
+awk '{sum += $4} END {printf "%d\n", sum}' student.txt
 
 
 
